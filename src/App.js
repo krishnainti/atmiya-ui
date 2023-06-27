@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import { useEffect, useRef } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+
+import { webStore, webPersister } from "./store/store";
+
+import Layout from "./layout/index";
 
 function App() {
+  const appRef = useRef(null);
+
+  useEffect(() => {
+    if (!appRef.current) {
+      appRef.current = true;
+
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "assets/js/oxpins.js";
+
+      document.body.appendChild(script);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Provider store={webStore}>
+        <PersistGate loading={null} persistor={webPersister}>
+          <Layout />
+        </PersistGate>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
