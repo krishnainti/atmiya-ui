@@ -28,7 +28,7 @@ const PasswordDetails = (props) => {
         <div className="contact-form__input-box">
           <TextInput
             type="password"
-            placeholder="Confine Password"
+            placeholder="Confirm Password"
             value={passwordDetails.confirm_password}
             error={passwordDetailsErrors.confirm_password}
             onChange={(e) =>

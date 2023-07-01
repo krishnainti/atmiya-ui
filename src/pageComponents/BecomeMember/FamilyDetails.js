@@ -26,13 +26,14 @@ const FamilyDetails = (props) => {
   };
 
   const addFamilyMember = () => {
-    setFamilyDetails({
-      ...familyDetails,
-      family_members: [
-        ...familyDetails.family_members,
-        { ...defaultFamilyMember },
-      ],
-    });
+    if (familyDetails.family_members.length < 3)
+      setFamilyDetails({
+        ...familyDetails,
+        family_members: [
+          ...familyDetails.family_members,
+          { ...defaultFamilyMember },
+        ],
+      });
   };
 
   const updateFamilyMember = (index, val, key) => {

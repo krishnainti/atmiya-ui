@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import PageHeader from "../../components/PageHeader";
 import UserDetails from "./UserDetails";
 import AddressDetails from "./AddressDetails";
-import TextInput from "../../components/TextInput";
 import MembershipDetails from "./MembershipDetails";
 import { validateRegistrationFrom } from "./utils";
 import {
@@ -22,6 +21,7 @@ const defaultUserDetails = {
   email: "",
   phone: "",
   marital_status: "",
+  gender: "",
 };
 
 const defaultAddressDetails = {
@@ -29,6 +29,7 @@ const defaultAddressDetails = {
   address_line_2: "",
   city: "",
   state: "",
+  metro_area: "",
   zip_code: "",
   country: "USA",
 };
@@ -75,6 +76,19 @@ const BecomeMember = () => {
   const [stateCodes, setStateCodes] = useState([]);
   const [membershipCategories, setMembershipCategories] = useState([]);
   const [chapters, setChapters] = useState([]);
+
+  const { metroAreasOptions } = useMemo(() => {
+    const selectedState = stateCodes.find(
+      (i) => i.value.toString() === addressDetails.state
+    );
+    const metroAreasOptions =
+      selectedState?.original?.metro_areas?.map((i) => ({
+        value: i.id,
+        label: i.name,
+      })) || [];
+
+    return { selectedState, metroAreasOptions };
+  }, [addressDetails.state, stateCodes]);
 
   useEffect(() => {
     if (addressDetails.state) {
@@ -128,6 +142,7 @@ const BecomeMember = () => {
         membershipDetails,
         passwordDetails,
         familyDetails,
+        stateCodes,
       });
 
       if (!isValid) {
@@ -175,34 +190,55 @@ const BecomeMember = () => {
           </div>
 
           <div className="contact-page__form-box">
+            <div className="contact-form__block-heading">Personal Details</div>
             <UserDetails
               userDetails={userDetails}
               setUserDetails={setUserDetails}
               userDetailsErrors={userDetailsErrors}
             />
 
-            <div className="divider mb-4" />
+            <div className="divider mb-2" />
+
+            <div className="contact-form__block-heading">Address</div>
 
             <AddressDetails
               addressDetails={addressDetails}
               setAddressDetails={setAddressDetails}
               addressDetailsErrors={addressDetailsErrors}
               stateCodes={stateCodes}
+              metroAreasOptions={metroAreasOptions}
             />
 
-            <div className="divider mb-4" />
+            <div className="divider mb-2" />
 
-            <div className="col-xl-6">
+            <div className="contact-form__block-heading">
+              Chapter Association
+            </div>
+
+            <div className="col-xl-12">
               <div className="contact-form__input-box">
-                <TextInput
-                  value={chapterRepresent}
-                  placeholder="Chapter you represent"
-                  disabled
-                />
+                <div className="contact-form__disable-text">
+                  {chapterRepresent ? (
+                    <>
+                      You will be associated with
+                      <b>
+                        <span>&nbsp;</span>
+                        {chapterRepresent}
+                        <span>&nbsp;</span>
+                      </b>
+                      chapter
+                    </>
+                  ) : (
+                    "Chapter you represent"
+                  )}
+                </div>
               </div>
             </div>
 
-            <div className="divider mb-4" />
+            <div className="divider mb-2" />
+            <div className="contact-form__block-heading">
+              Membership Category
+            </div>
 
             <MembershipDetails
               membershipDetails={membershipDetails}
@@ -211,7 +247,10 @@ const BecomeMember = () => {
               membershipCategories={membershipCategories}
             />
 
-            <div className="divider mb-4" />
+            <div className="divider mb-2" />
+            <div className="contact-form__block-heading">
+              Membership Category
+            </div>
 
             <PasswordDetails
               passwordDetails={passwordDetails}
@@ -219,19 +258,24 @@ const BecomeMember = () => {
               passwordDetailsErrors={passwordDetailsErrors}
             />
 
-            <div className="divider mb-4" />
+            <div className="divider mb-2" />
 
             {["2", "3", "4"].includes(membershipDetails.membership_category) &&
               userDetails.marital_status === "married" && (
                 <>
+                  <div className="contact-form__block-heading">
+                    Family Details
+                  </div>
                   <FamilyDetails
                     familyDetails={familyDetails}
                     setFamilyDetails={setFamilyDetails}
                     familyDetailsErrors={familyDetailsErrors}
                   />
-                  <div className="divider mb-4" />
+                  <div className="divider mb-2" />
                 </>
               )}
+
+            <div className="contact-form__block-heading">Payment Options</div>
 
             <PaymentOptions />
 
@@ -242,7 +286,7 @@ const BecomeMember = () => {
                     className="thm-btn contact-form__btn"
                     onClick={handleSave}
                   >
-                    Send
+                    Next
                   </button>
                 </div>
               </div>

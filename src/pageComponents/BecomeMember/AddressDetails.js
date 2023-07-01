@@ -7,6 +7,7 @@ const AddressDetails = (props) => {
     setAddressDetails,
     addressDetailsErrors,
     stateCodes,
+    metroAreasOptions,
   } = props;
 
   const updateAddressDetails = (val, key) => {
@@ -55,17 +56,39 @@ const AddressDetails = (props) => {
         </div>
       </div>
 
-      <div className="col-xl-6">
+      <div className={metroAreasOptions.length ? "col-xl-3" : "col-xl-6"}>
         <div className="contact-form__input-box">
           <SelectInput
             placeholder="State"
             value={addressDetails.state}
             error={addressDetailsErrors.state}
-            onChange={(e) => updateAddressDetails(e.target.value, "state")}
+            onChange={(e) => {
+              setAddressDetails({
+                ...addressDetails,
+                state: e.target.value,
+                metro_area: "",
+              });
+            }}
             options={stateCodes}
           />
         </div>
       </div>
+
+      {metroAreasOptions.length > 0 && (
+        <div className="col-xl-3">
+          <div className="contact-form__input-box">
+            <SelectInput
+              placeholder="Metro Area"
+              value={addressDetails.metro_area}
+              error={addressDetailsErrors.metro_area}
+              onChange={(e) =>
+                updateAddressDetails(e.target.value, "metro_area")
+              }
+              options={metroAreasOptions}
+            />
+          </div>
+        </div>
+      )}
 
       <div className="col-xl-6">
         <div className="contact-form__input-box">

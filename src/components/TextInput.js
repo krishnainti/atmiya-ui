@@ -1,6 +1,9 @@
 const TextInput = (props) => {
   return (
     <>
+      <label className="form-field-label">
+        {props.label || props.placeholder}
+      </label>
       <input
         {...props}
         type={props.type || "text"}

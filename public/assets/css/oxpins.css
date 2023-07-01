@@ -10938,8 +10938,6 @@ body.locked .page-wrapper {
   display: block;
   border-radius: var(--oxpins-bdr-radius);
   font-weight: 500;
-
-  
 }
 
 .contact-form__input-box select {
@@ -11273,5 +11271,34 @@ body.boxed-wrapper {
   height: 60px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.contact-form__block-heading {
+  color: var(--oxpins-black);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.form-field-label {
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.contact-form__disable-text {
+  height: 60px;
+  width: 100%;
+  border: none;
+  background-color: var(--oxpins-white);
+  padding-left: 30px;
+  padding-right: 30px;
+  outline: none;
+  font-size: 14px;
+  color: #707876;
+  display: flex;
+  border-radius: var(--oxpins-bdr-radius);
+  font-weight: 500;
   align-items: center;
 }

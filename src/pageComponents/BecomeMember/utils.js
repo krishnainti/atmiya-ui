@@ -16,6 +16,7 @@ export const validateRegistrationFrom = ({
   membershipDetails,
   passwordDetails,
   familyDetails,
+  stateCodes,
 }) => {
   let isValid = true;
   const errors = {
@@ -32,7 +33,10 @@ export const validateRegistrationFrom = ({
     errors.userDetailsErrors = userDetailsErrors;
   }
 
-  const addressDetailsErrors = validateAddressDetails(addressDetails);
+  const addressDetailsErrors = validateAddressDetails(
+    addressDetails,
+    stateCodes
+  );
   if (Object.keys(addressDetailsErrors).length) {
     isValid = false;
     errors.addressDetailsErrors = addressDetailsErrors;
@@ -177,7 +181,7 @@ const validateMembershipDetails = (membershipDetails) => {
   return membershipDetailsErrors;
 };
 
-const validateAddressDetails = (addressDetails) => {
+const validateAddressDetails = (addressDetails, stateCodes) => {
   const addressDetailsErrors = {};
 
   if (!addressDetails.address_line_1) {
@@ -196,7 +200,17 @@ const validateAddressDetails = (addressDetails) => {
     addressDetailsErrors.zip_code = "Enter Zip Code";
   } else if (!isValidZipCode(addressDetails.zip_code)) {
     addressDetailsErrors.zip_code = "Enter Valid Zip Code";
-    // https://bobbyhadz.com/blog/javascript-zip-code-validation
+  }
+
+  const selectedState = stateCodes.find(
+    (i) => i.value.toString() === addressDetails.state
+  );
+
+  if (
+    selectedState?.original?.metro_areas?.length &&
+    !addressDetails.metro_area
+  ) {
+    addressDetailsErrors.metro_area = "Select Metro Area";
   }
 
   return addressDetailsErrors;
@@ -236,7 +250,11 @@ const validateUserDetails = (userDetails) => {
   }
 
   if (!userDetails.marital_status) {
-    userDetailsErrors.marital_status = "Enter Select Marital Status";
+    userDetailsErrors.marital_status = "Select Marital Status";
+  }
+
+  if (!userDetails.gender) {
+    userDetailsErrors.gender = "Select Gender";
   }
 
   return userDetailsErrors;

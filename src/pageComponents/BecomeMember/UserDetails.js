@@ -106,6 +106,27 @@ const UserDetails = (props) => {
           />
         </div>
       </div>
+
+      <div className="col-xl-6">
+        <div className="contact-form__input-box">
+          <SelectInput
+            placeholder="Gender"
+            value={userDetails.gender}
+            error={userDetailsErrors.gender}
+            onChange={(e) => updateUserDetails(e.target.value, "gender")}
+            options={[
+              {
+                label: "Male",
+                value: "male",
+              },
+              {
+                label: "Female",
+                value: "female",
+              },
+            ]}
+          />
+        </div>
+      </div>
     </div>
   );
 };
