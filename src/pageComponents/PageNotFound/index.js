@@ -3,7 +3,10 @@ import PageHeader from "../../components/PageHeader";
 const PageNotFound = () => {
   return (
     <>
-      <PageHeader />
+      <PageHeader
+        breadcrumb={[{ label: "Home", link: "/" }]}
+        title="404 Error"
+      />
 
       <section className="error-page">
         <div

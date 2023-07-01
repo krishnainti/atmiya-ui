@@ -16,10 +16,9 @@ function App() {
     if (!appRef.current) {
       appRef.current = true;
 
-      var script = document.createElement("script");
+      let script = document.createElement("script");
       script.type = "text/javascript";
       script.src = "assets/js/oxpins.js";
-
       document.body.appendChild(script);
     }
   }, []);
