@@ -1,5 +1,6 @@
 import SelectInput from "../../components/SelectInput";
 import TextInput from "../../components/TextInput";
+import { genderOptions, maritalStatusOptions } from "./consts";
 
 const UserDetails = (props) => {
   const { userDetails, setUserDetails, userDetailsErrors } = props;
@@ -93,16 +94,7 @@ const UserDetails = (props) => {
             onChange={(e) =>
               updateUserDetails(e.target.value, "marital_status")
             }
-            options={[
-              {
-                label: "Single",
-                value: "single",
-              },
-              {
-                label: "Married",
-                value: "married",
-              },
-            ]}
+            options={maritalStatusOptions}
           />
         </div>
       </div>
@@ -114,16 +106,7 @@ const UserDetails = (props) => {
             value={userDetails.gender}
             error={userDetailsErrors.gender}
             onChange={(e) => updateUserDetails(e.target.value, "gender")}
-            options={[
-              {
-                label: "Male",
-                value: "male",
-              },
-              {
-                label: "Female",
-                value: "female",
-              },
-            ]}
+            options={genderOptions}
           />
         </div>
       </div>

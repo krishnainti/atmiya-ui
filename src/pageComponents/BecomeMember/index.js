@@ -12,44 +12,13 @@ import {
 import PasswordDetails from "./PasswordDetails";
 import FamilyDetails from "./FamilyDetails";
 import PaymentOptions from "./PaymentOptions";
-
-const defaultUserDetails = {
-  reference_by: "",
-  reference_phone: "",
-  first_name: "",
-  last_name: "",
-  email: "",
-  phone: "",
-  marital_status: "",
-  gender: "",
-};
-
-const defaultAddressDetails = {
-  address_line_1: "",
-  address_line_2: "",
-  city: "",
-  state: "",
-  metro_area: "",
-  zip_code: "",
-  country: "USA",
-};
-
-const defaultMembershipDetails = {
-  membership_category: "",
-};
-
-const defaultPasswordDetails = {
-  password: "",
-  confirm_password: "",
-};
-
-const defaultFamilyDetails = {
-  spouse_first_name: "",
-  spouse_last_name: "",
-  spouse_email: "",
-  spouse_phone: "",
-  family_members: [],
-};
+import {
+  defaultAddressDetails,
+  defaultFamilyDetails,
+  defaultMembershipDetails,
+  defaultPasswordDetails,
+  defaultUserDetails,
+} from "./consts";
 
 const BecomeMember = () => {
   const [userDetails, setUserDetails] = useState(defaultUserDetails);
@@ -72,6 +41,8 @@ const BecomeMember = () => {
 
   const [familyDetails, setFamilyDetails] = useState(defaultFamilyDetails);
   const [familyDetailsErrors, setFamilyDetailsErrors] = useState({});
+
+  const [paymentMode, setPaymentMode] = useState("paypal");
 
   const [stateCodes, setStateCodes] = useState([]);
   const [membershipCategories, setMembershipCategories] = useState([]);
@@ -248,9 +219,7 @@ const BecomeMember = () => {
             />
 
             <div className="divider mb-2" />
-            <div className="contact-form__block-heading">
-              Membership Category
-            </div>
+            <div className="contact-form__block-heading">Password</div>
 
             <PasswordDetails
               passwordDetails={passwordDetails}
@@ -277,7 +246,10 @@ const BecomeMember = () => {
 
             <div className="contact-form__block-heading">Payment Options</div>
 
-            <PaymentOptions />
+            <PaymentOptions
+              paymentMode={paymentMode}
+              setPaymentMode={setPaymentMode}
+            />
 
             <div className="row pt-5">
               <div className="col-xl-12">
