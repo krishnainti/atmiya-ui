@@ -1,9 +1,17 @@
 import { useEffect, useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import PageHeader from "../../components/PageHeader";
 import UserDetails from "./UserDetails";
 import AddressDetails from "./AddressDetails";
 import MembershipDetails from "./MembershipDetails";
-import { validateRegistrationFrom } from "./utils";
+import {
+  prefillTheData,
+  prepareRegisterPayload,
+  prepareServerErrors,
+  validateRegistrationFrom,
+} from "./utils";
 import {
   fetchChapterStates,
   fetchChapters,
@@ -19,27 +27,38 @@ import {
   defaultPasswordDetails,
   defaultUserDetails,
 } from "./consts";
+import { register } from "../../services/auth";
+import { setUser, setRoles, setProfile } from "../../store";
 
 const BecomeMember = () => {
-  const [userDetails, setUserDetails] = useState(defaultUserDetails);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user, profile } = useSelector((state) => state.user);
+
+  const [userDetails, setUserDetails] = useState({ ...defaultUserDetails });
   const [userDetailsErrors, setUserDetailsErrors] = useState({});
 
-  const [addressDetails, setAddressDetails] = useState(defaultAddressDetails);
+  const [addressDetails, setAddressDetails] = useState({
+    ...defaultAddressDetails,
+  });
   const [addressDetailsErrors, setAddressDetailsErrors] = useState({});
 
   const [chapterRepresent, setChapterRepresent] = useState("");
 
-  const [membershipDetails, setMembershipDetails] = useState(
-    defaultMembershipDetails
-  );
+  const [membershipDetails, setMembershipDetails] = useState({
+    ...defaultMembershipDetails,
+  });
   const [membershipDetailsErrors, setMembershipDetailsErrors] = useState({});
 
-  const [passwordDetails, setPasswordDetails] = useState(
-    defaultPasswordDetails
-  );
+  const [passwordDetails, setPasswordDetails] = useState({
+    ...defaultPasswordDetails,
+  });
   const [passwordDetailsErrors, setPasswordDetailsErrors] = useState({});
 
-  const [familyDetails, setFamilyDetails] = useState(defaultFamilyDetails);
+  const [familyDetails, setFamilyDetails] = useState({
+    ...defaultFamilyDetails,
+  });
   const [familyDetailsErrors, setFamilyDetailsErrors] = useState({});
 
   const [paymentMode, setPaymentMode] = useState("paypal");
@@ -48,9 +67,22 @@ const BecomeMember = () => {
   const [membershipCategories, setMembershipCategories] = useState([]);
   const [chapters, setChapters] = useState([]);
 
+  useEffect(() => {
+    if (user && profile) {
+      const formData = prefillTheData({ user, profile });
+
+      setUserDetails(formData.userDetails);
+      setAddressDetails(formData.addressDetails);
+      setMembershipDetails(formData.membershipDetails);
+      setPasswordDetails(formData.passwordDetails);
+      setFamilyDetails(formData.familyDetails);
+      setPaymentMode(formData.paymentMode);
+    }
+  }, []);
+
   const { metroAreasOptions } = useMemo(() => {
     const selectedState = stateCodes.find(
-      (i) => i.value.toString() === addressDetails.state
+      (i) => i.value.toString() === addressDetails.state.toString()
     );
     const metroAreasOptions =
       selectedState?.original?.metro_areas?.map((i) => ({
@@ -68,15 +100,18 @@ const BecomeMember = () => {
       )?.original?.chapter_id;
 
       if (chapterId) {
-        const chapterOb = chapters.find((i) => i.id === chapterId);
+        const chapterOb = chapters.find(
+          (i) => i.id.toString() === chapterId.toString()
+        );
         setChapterRepresent(chapterOb?.name || "");
       }
     }
-  }, [addressDetails.state]);
+  }, [addressDetails, stateCodes, chapters]);
 
   const getMasterData = async () => {
     try {
       const stateNames = await fetchChapterStates();
+
       setStateCodes(
         stateNames.map((i) => ({
           label: i.short_name,
@@ -105,8 +140,14 @@ const BecomeMember = () => {
     getMasterData();
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     try {
+      setUserDetailsErrors({});
+      setAddressDetailsErrors({});
+      setMembershipDetailsErrors({});
+      setPasswordDetailsErrors({});
+      setFamilyDetailsErrors({});
+
       const { isValid, errors } = validateRegistrationFrom({
         userDetails,
         addressDetails,
@@ -122,13 +163,39 @@ const BecomeMember = () => {
         setMembershipDetailsErrors(errors.membershipDetailsErrors);
         setPasswordDetailsErrors(errors.passwordDetailsErrors);
         setFamilyDetailsErrors(errors.familyDetailsErrors);
-
         return;
       }
 
-      console.log("isValid, errors ", isValid, errors);
+      const payload = prepareRegisterPayload({
+        userDetails,
+        addressDetails,
+        membershipDetails,
+        passwordDetails,
+        familyDetails,
+        paymentMode,
+      });
+
+      const response = await register(payload);
+
+      dispatch(setUser(response.user));
+      dispatch(setRoles(response.roles));
+      dispatch(setProfile(response.profile));
+
+      // TODO:: Handle payments for paypal and cards
+
+      navigate("/review-details");
+
+      console.log("response -->", response);
     } catch (e) {
       console.log("error while handleSave", e);
+      if (e.response.status === 422) {
+        const errors = prepareServerErrors(e.response.data.errors);
+        setUserDetailsErrors(errors.userDetailsErrors);
+        setAddressDetailsErrors(errors.addressDetailsErrors);
+        setMembershipDetailsErrors(errors.membershipDetailsErrors);
+        setPasswordDetailsErrors(errors.passwordDetailsErrors);
+        setFamilyDetailsErrors(errors.familyDetailsErrors);
+      }
     }
   };
 
@@ -229,7 +296,9 @@ const BecomeMember = () => {
 
             <div className="divider mb-2" />
 
-            {["2", "3", "4"].includes(membershipDetails.membership_category) &&
+            {["2", "3", "4"].includes(
+              membershipDetails.membership_category.toString()
+            ) &&
               userDetails.marital_status === "married" && (
                 <>
                   <div className="contact-form__block-heading">

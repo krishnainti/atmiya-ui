@@ -11302,3 +11302,14 @@ body.boxed-wrapper {
   font-weight: 500;
   align-items: center;
 }
+
+.review-details__item {
+  display: flex;
+  gap: 4px;
+}
+
+.review-details__item--label {
+  color: var(--oxpins-black);
+  font-size: 14px;
+  font-weight: 500;
+}

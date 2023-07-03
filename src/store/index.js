@@ -1,2 +1,2 @@
 export * from "./store";
-export * from "./registerSlice";
+export * from "./userSlice";

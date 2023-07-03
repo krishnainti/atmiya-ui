@@ -10,16 +10,16 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import registerSlice from "./registerSlice";
+import userSlice from "./userSlice";
 
 let reducers = combineReducers({
-  register: registerSlice,
+  user: userSlice,
 });
 
 const persistConfig = {
   key: "atmiya",
   storage: storage,
-  whiteList: ["register"],
+  whiteList: ["user"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

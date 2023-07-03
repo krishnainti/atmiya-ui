@@ -1,14 +1,11 @@
-const isValidPhoneNumber = (phoneNumber) => {
-  return /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(phoneNumber);
-};
-
-const validateEmail = (email) => {
-  return /\S+@\S+\.\S+/.test(email);
-};
-
-const isValidZipCode = (zipCode) => {
-  return /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zipCode);
-};
+import { isValidPhoneNumber, isValidZipCode, validateEmail } from "../../utils";
+import {
+  defaultAddressDetails,
+  defaultFamilyDetails,
+  defaultMembershipDetails,
+  defaultPasswordDetails,
+  defaultUserDetails,
+} from "./consts";
 
 export const validateRegistrationFrom = ({
   userDetails,
@@ -54,22 +51,29 @@ export const validateRegistrationFrom = ({
     errors.passwordDetailsErrors = passwordDetailsErrors;
   }
 
-  const familyDetailsErrors = validateFamilyDetails(familyDetails);
-  if (Object.keys(familyDetailsErrors).length) {
-    if (
-      Object.keys(familyDetailsErrors).length === 1 &&
-      familyDetailsErrors.family_members.length
-    ) {
-      const allFamilyMembersFilled = familyDetailsErrors.family_members.every(
-        (item) => Object.keys(item).length === 0
-      );
+  if (
+    ["2", "3", "4"].includes(
+      membershipDetails.membership_category.toString()
+    ) &&
+    userDetails.marital_status === "married"
+  ) {
+    const familyDetailsErrors = validateFamilyDetails(familyDetails);
+    if (Object.keys(familyDetailsErrors).length) {
+      if (
+        Object.keys(familyDetailsErrors).length === 1 &&
+        familyDetailsErrors.family_members.length
+      ) {
+        const allFamilyMembersFilled = familyDetailsErrors.family_members.every(
+          (item) => Object.keys(item).length === 0
+        );
 
-      if (!allFamilyMembersFilled) isValid = false;
-    } else {
-      isValid = false;
+        if (!allFamilyMembersFilled) isValid = false;
+      } else {
+        isValid = false;
+      }
+
+      errors.familyDetailsErrors = familyDetailsErrors;
     }
-
-    errors.familyDetailsErrors = familyDetailsErrors;
   }
 
   return { isValid, errors };
@@ -203,7 +207,7 @@ const validateAddressDetails = (addressDetails, stateCodes) => {
   }
 
   const selectedState = stateCodes.find(
-    (i) => i.value.toString() === addressDetails.state
+    (i) => i.value.toString() === addressDetails.state.toString()
   );
 
   if (
@@ -258,4 +262,186 @@ const validateUserDetails = (userDetails) => {
   }
 
   return userDetailsErrors;
+};
+
+export const prepareRegisterPayload = ({
+  userDetails,
+  addressDetails,
+  membershipDetails,
+  passwordDetails,
+  familyDetails,
+  paymentMode,
+}) => {
+  return {
+    reference_by: userDetails.reference_by,
+    reference_phone: userDetails.reference_phone,
+    first_name: userDetails.first_name,
+    last_name: userDetails.last_name,
+    email: userDetails.email,
+    phone: userDetails.phone,
+    marital_status: userDetails.marital_status,
+    gender: userDetails.gender,
+
+    address_line_1: addressDetails.address_line_1,
+    address_line_2: addressDetails.address_line_2,
+    city: addressDetails.city,
+    state: +addressDetails.state,
+    metro_area: addressDetails.metro_area,
+    zip_code: addressDetails.zip_code,
+    country: addressDetails.country,
+
+    membership_category: +membershipDetails.membership_category,
+
+    spouse_first_name: familyDetails.spouse_first_name,
+    spouse_last_name: familyDetails.spouse_last_name,
+    spouse_email: familyDetails.spouse_email,
+    spouse_phone: familyDetails.spouse_phone,
+    family_members: familyDetails.family_members,
+
+    payment_mode: paymentMode,
+
+    password: passwordDetails.password,
+    confirm_password: passwordDetails.confirm_password,
+  };
+};
+
+export const prepareServerErrors = (errors) => {
+  const errorsOb = {
+    userDetailsErrors: {},
+    addressDetailsErrors: {},
+    membershipDetailsErrors: {},
+    passwordDetailsErrors: {},
+    familyDetailsErrors: {},
+  };
+
+  // personal details
+  if (errors.reference_by) {
+    errorsOb.userDetailsErrors.reference_by = errors.reference_by[0] || "";
+  }
+
+  if (errors.reference_phone) {
+    errorsOb.userDetailsErrors.reference_phone =
+      errors.reference_phone[0] || "";
+  }
+
+  if (errors.first_name) {
+    errorsOb.userDetailsErrors.first_name = errors.first_name[0] || "";
+  }
+
+  if (errors.last_name) {
+    errorsOb.userDetailsErrors.last_name = errors.last_name[0] || "";
+  }
+
+  if (errors.email) {
+    errorsOb.userDetailsErrors.email = errors.email[0] || "";
+  }
+
+  if (errors.phone) {
+    errorsOb.userDetailsErrors.phone = errors.phone[0] || "";
+  }
+
+  if (errors.marital_status) {
+    errorsOb.userDetailsErrors.marital_status = errors.marital_status[0] || "";
+  }
+
+  if (errors.gender) {
+    errorsOb.userDetailsErrors.gender = errors.gender[0] || "";
+  }
+
+  // address details
+  if (errors.address_line_1) {
+    errorsOb.addressDetailsErrors.address_line_1 =
+      errors.address_line_1[0] || "";
+  }
+
+  if (errors.city) {
+    errorsOb.addressDetailsErrors.city = errors.city[0] || "";
+  }
+
+  if (errors.state) {
+    errorsOb.addressDetailsErrors.state = errors.state[0] || "";
+  }
+
+  if (errors.zip_code) {
+    errorsOb.addressDetailsErrors.zip_code = errors.zip_code[0] || "";
+  }
+
+  if (errors.metro_area) {
+    errorsOb.addressDetailsErrors.metro_area = errors.metro_area[0] || "";
+  }
+
+  // membership details
+  if (errors.membership_category) {
+    errorsOb.membershipDetailsErrors.membership_category =
+      errors.membership_category[0] || "";
+  }
+
+  // Password details
+  if (errors.password) {
+    errorsOb.passwordDetailsErrors.password = errors.password[0] || "";
+  }
+
+  if (errors.confirm_password) {
+    errorsOb.passwordDetailsErrors.confirm_password =
+      errors.confirm_password[0] || "";
+  }
+
+  // Family details
+  if (errors.spouse_first_name) {
+    errorsOb.familyDetailsErrors.spouse_first_name = errors.spouse_first_name;
+  }
+
+  if (errors.spouse_last_name) {
+    errorsOb.familyDetailsErrors.spouse_last_name = errors.spouse_last_name;
+  }
+
+  if (errors.spouse_email) {
+    errorsOb.familyDetailsErrors.spouse_email = errors.spouse_email;
+  }
+
+  if (errors.spouse_phone) {
+    errorsOb.familyDetailsErrors.spouse_phone = errors.spouse_phone;
+  }
+
+  return errorsOb;
+};
+
+export const prefillTheData = ({ user, profile }) => {
+  const data = {
+    userDetails: { ...defaultUserDetails },
+    addressDetails: defaultAddressDetails,
+    membershipDetails: defaultMembershipDetails,
+    passwordDetails: defaultPasswordDetails,
+    familyDetails: defaultFamilyDetails,
+    paymentMode: "paypal",
+  };
+
+  data.userDetails.reference_by = profile.reference_by;
+  data.userDetails.reference_phone = profile.reference_phone;
+  data.userDetails.first_name = profile.first_name;
+  data.userDetails.last_name = profile.last_name;
+  data.userDetails.email = user.email;
+  data.userDetails.phone = profile.phone;
+  data.userDetails.marital_status = profile.marital_status;
+  data.userDetails.gender = profile.gender;
+
+  data.addressDetails.address_line_1 = profile.address_line_1;
+  data.addressDetails.address_line_2 = profile.address_line_2;
+  data.addressDetails.city = profile.city;
+  data.addressDetails.state = profile.state;
+  data.addressDetails.metro_area = profile.metro_area;
+  data.addressDetails.zip_code = profile.zip_code;
+  data.addressDetails.country = profile.country;
+
+  data.membershipDetails.membership_category = profile.membership_category;
+
+  data.familyDetails.spouse_first_name = profile.spouse_first_name;
+  data.familyDetails.spouse_last_name = profile.spouse_last_name;
+  data.familyDetails.spouse_email = profile.spouse_email;
+  data.familyDetails.spouse_phone = profile.spouse_phone;
+  data.familyDetails.family_members = profile.family_members || [];
+
+  data.paymentMode = profile.payment_mode;
+
+  return data;
 };

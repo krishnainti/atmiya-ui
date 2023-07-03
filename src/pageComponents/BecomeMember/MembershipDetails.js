@@ -15,13 +15,15 @@ const MembershipDetails = (props) => {
   useEffect(() => {
     if (membershipDetails.membership_category) {
       const selectedMembershipCategory = membershipCategories.find(
-        (i) => i.value.toString() === membershipDetails.membership_category
+        (i) =>
+          i.value.toString() ===
+          membershipDetails.membership_category.toString()
       );
 
       if (selectedMembershipCategory)
         setFee(`$ ${parseFloat(selectedMembershipCategory.original.fee)}`);
     }
-  }, [membershipDetails.membership_category]);
+  }, [membershipDetails, membershipCategories]);
 
   const updateMembershipDetails = (val, key) => {
     setMembershipDetails({
