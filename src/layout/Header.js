@@ -115,7 +115,7 @@ const Header = () => {
 
                   <ul className="main-menu__list">
                     <li className="dropdown current megamenu">
-                      <a href="index.html">Home </a>
+                      <a href="/">Home </a>
 
                       <ul></ul>
                     </li>
