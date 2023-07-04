@@ -19,13 +19,15 @@ import FamilyDetails from "./FamilyDetails";
 
 const ReviewDetails = () => {
   const dispatch = useDispatch();
-  const { user, profile } = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.user);
+  const profile = user?.profile;
 
   useEffect(() => {
     if (!profile) navigate("/");
 
-    if (profile && !["pending", "payment_done"].includes(profile.status)) {
+    if (profile && !["pending", "payment_done"].includes(profile?.status)) {
       navigate("/");
     }
   }, [profile]);
@@ -36,7 +38,7 @@ const ReviewDetails = () => {
 
   const { selectedMetroArea, selectedState, chapterRepresent } = useMemo(() => {
     const selectedState = stateCodes.find(
-      (i) => i.value.toString() === profile.state.toString()
+      (i) => i.value.toString() === profile?.state.toString()
     );
 
     const metroAreasOptions =
@@ -46,11 +48,11 @@ const ReviewDetails = () => {
       })) || [];
 
     const selectedMetroArea = metroAreasOptions.find(
-      (i) => i.value.toString() === profile.metro_area.toString()
+      (i) => i.value.toString() === profile?.metro_area.toString()
     );
 
     const chapterId = stateCodes.find(
-      (i) => i.value.toString() === profile.state.toString()
+      (i) => i.value.toString() === profile?.state.toString()
     )?.original?.chapter_id;
 
     let chapterRepresent = "";
@@ -182,7 +184,7 @@ const ReviewDetails = () => {
 
             <div className="divider mb-2" />
 
-            {profile.spouse_first_name && (
+            {profile?.spouse_first_name && (
               <>
                 <div className="contact-form__block-heading">
                   Family Details
@@ -199,8 +201,9 @@ const ReviewDetails = () => {
                 <Item
                   label="Payment Option"
                   value={
-                    paymentOptions.find((i) => i.value === profile.payment_mode)
-                      ?.label
+                    paymentOptions.find(
+                      (i) => i.value === profile?.payment_mode
+                    )?.label
                   }
                 />
               </div>

@@ -6,7 +6,7 @@ const MembershipDetails = (props) => {
 
   const { selectedMembershipCategory, fee } = useMemo(() => {
     const selectedMembershipCategory = membershipCategories.find(
-      (i) => i.value.toString() === profile.membership_category.toString()
+      (i) => i.value.toString() === profile?.membership_category.toString()
     );
 
     return {
