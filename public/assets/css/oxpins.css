@@ -799,6 +799,7 @@ ul {
   color: var(--oxpins-white);
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
+  margin-right: 30px;
 }
 
 .main-menu__search:hover {
@@ -808,12 +809,17 @@ ul {
 .main-menu__cat-box {
   display: flex;
   align-items: center;
-  margin-right: 30px;
-  margin-left: 30px;
+  margin-right: 30px !important;
+}
+
+.main-menu__user-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 30px !important;
 }
 
 .main-menu__cart {
-  font-size: 24px;
+  font-size: 24px !important;
   color: var(--oxpins-white);
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;

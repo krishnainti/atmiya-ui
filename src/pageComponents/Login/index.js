@@ -1,10 +1,17 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import PageHeader from "../../components/PageHeader";
 import LoginDetails from "./LoginDetails";
 import { validateLoginDetails } from "./utils";
 import { login } from "../../services/auth";
+import { setToken, setUser } from "../../store";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
   const [loginDetailsErrors, setLoginDetailsErrors] = useState({});
 
@@ -20,12 +27,33 @@ const Login = () => {
 
       const data = await login(loginDetails);
 
-      console.log("data -->", data);
-      // set tokens and user data in redux
+      dispatch(setUser(data.user));
+      dispatch(setToken(data.token));
+
+      const isAdmin =
+        data.user.roles?.map((i) => i.name)?.includes("admin") || false;
+
+      if (isAdmin) {
+        navigate("/pending-profiles");
+      } else {
+        navigate("/review-details");
+      }
+      window.location.reload();
     } catch (e) {
       console.log("Error while handleLogin", e);
       if (e.response.status === 422) {
         // set validation errors properly
+      } else if (e.response.status === 500) {
+        if (e.response?.data?.message?.mode === "user_not_found") {
+          setLoginDetailsErrors({ password: "Email or Password in correct" });
+        }
+
+        if (e.response?.data?.message?.mode === "profile_under_review") {
+          setLoginDetailsErrors({
+            password:
+              "Your profile under review. Please wait some time admin will approve your profile.",
+          });
+        }
       }
     }
   };

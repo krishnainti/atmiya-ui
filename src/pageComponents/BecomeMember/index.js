@@ -27,7 +27,7 @@ import {
   defaultPasswordDetails,
   defaultUserDetails,
 } from "./consts";
-import { register } from "../../services/auth";
+import { findProfileByEmail, register } from "../../services/auth";
 import { setUser } from "../../store";
 
 const BecomeMember = () => {
@@ -68,6 +68,7 @@ const BecomeMember = () => {
   const [stateCodes, setStateCodes] = useState([]);
   const [membershipCategories, setMembershipCategories] = useState([]);
   const [chapters, setChapters] = useState([]);
+  const [foundProfileByEmail, setFoundProfileByEmail] = useState(false);
 
   useEffect(() => {
     if (user && profile) {
@@ -80,7 +81,7 @@ const BecomeMember = () => {
       setFamilyDetails(formData.familyDetails);
       setPaymentMode(formData.paymentMode);
     }
-  }, []);
+  }, [user, profile]);
 
   const { metroAreasOptions } = useMemo(() => {
     const selectedState = stateCodes.find(
@@ -203,6 +204,20 @@ const BecomeMember = () => {
     }
   };
 
+  const findUserWithEmail = async (e) => {
+    try {
+      setFoundProfileByEmail(false);
+      const response = await findProfileByEmail({ email: e.target.value });
+      console.log("response -->", response);
+      if (response) {
+        setFoundProfileByEmail(true);
+        dispatch(setUser(response.user));
+      }
+    } catch (e) {
+      console.log("Error While findUserWithEmail", e);
+    }
+  };
+
   return (
     <>
       <PageHeader
@@ -231,12 +246,19 @@ const BecomeMember = () => {
             <h2 className="section-title__title">Become a Member</h2>
           </div>
 
+          {userDetails.email && foundProfileByEmail && (
+            <div>
+              Details Present in our database with Email: {userDetails.email}
+            </div>
+          )}
+
           <div className="contact-page__form-box">
             <div className="contact-form__block-heading">Personal Details</div>
             <UserDetails
               userDetails={userDetails}
               setUserDetails={setUserDetails}
               userDetailsErrors={userDetailsErrors}
+              findUserWithEmail={findUserWithEmail}
             />
 
             <div className="divider mb-2" />
