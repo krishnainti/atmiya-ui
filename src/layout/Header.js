@@ -142,7 +142,7 @@ const Header = () => {
 
                       <ul>
                         <li>
-                          <a href="about.html">About Us</a>
+                          <a href="/about">About Us</a>
                         </li>
 
                         <li>
@@ -150,15 +150,15 @@ const Header = () => {
                         </li>
 
                         <li>
-                          <a href="501c3.html">501(c)3</a>
+                          <a href="/reg501c3">501(c)3</a>
                         </li>
 
                         <li>
-                          <a href="corporate.html">Corporate Matching</a>
+                          <a href="/corporate">Corporate Matching</a>
                         </li>
 
                         <li>
-                          <a href="pvsa.html">PVSA</a>
+                          <a href="/pvsa">PVSA</a>
                         </li>
                       </ul>
                     </li>
