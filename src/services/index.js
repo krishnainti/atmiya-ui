@@ -1,4 +1,5 @@
 import axios from "axios";
+import { webStore } from "../store";
 
 let axiosOb = axios.create();
 axiosOb.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -10,6 +11,10 @@ axiosOb.defaults.headers.common = {
 
 axiosOb.interceptors.request.use(
   async function (config) {
+    config.headers["Authorization"] = `Bearer ${
+      webStore.getState().user.token
+    }`;
+
     return config;
   },
   function (error) {

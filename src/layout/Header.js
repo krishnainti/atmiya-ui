@@ -239,19 +239,6 @@ const Header = () => {
                   </ul>
                 </div>
 
-                {token && (
-                  <div className="main-menu__user-icon main-menu__list">
-                    <li className="dropdown">
-                      <a className="main-menu__cart icon-avatar" />
-                      <ul style={{ minWidth: "150px" }}>
-                        <li>
-                          <a onClick={logout}>Logout</a>
-                        </li>
-                      </ul>
-                    </li>
-                  </div>
-                )}
-
                 <div className="main-menu__main-menu-content-box">
                   <div className="main-menu__search-cat-btn-box">
                     <div className="main-menu__search-box">
@@ -260,6 +247,19 @@ const Header = () => {
                         className="main-menu__search search-toggler icon-magnifying-glass"
                       />
                     </div>
+
+                    {token && (
+                      <div className="main-menu__user-icon main-menu__list">
+                        <li className="dropdown">
+                          <a className="main-menu__cart icon-avatar" />
+                          <ul style={{ minWidth: "150px" }}>
+                            <li>
+                              <a onClick={logout}>Logout</a>
+                            </li>
+                          </ul>
+                        </li>
+                      </div>
+                    )}
 
                     <div className="main-menu__btn-box">
                       <a
