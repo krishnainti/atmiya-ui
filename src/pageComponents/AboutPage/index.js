@@ -1,7 +1,6 @@
 import PageHeader from "../../components/PageHeader";
 import AboutDetails from "./AboutDetails";
 
-
 const AboutPage = () => {
   return (
     <div>
@@ -14,8 +13,6 @@ const AboutPage = () => {
       />
 
       <AboutDetails />
-      
-  
     </div>
   );
 };

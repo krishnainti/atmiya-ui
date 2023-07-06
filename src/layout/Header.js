@@ -1,4 +1,21 @@
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { clearUser } from "../store";
+
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { token } = useSelector((state) => state.user);
+
+  const logout = () => {
+    dispatch(clearUser());
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <header className="main-header">
       <nav className="main-menu">
@@ -228,12 +245,21 @@ const Header = () => {
                       <a
                         href="#"
                         className="main-menu__search search-toggler icon-magnifying-glass"
-                      ></a>
+                      />
                     </div>
 
-                    <div className="main-menu__cat-box">
-                      <a href="#" className="main-menu__cart icon-avatar"></a>
-                    </div>
+                    {token && (
+                      <div className="main-menu__user-icon main-menu__list">
+                        <li className="dropdown">
+                          <a className="main-menu__cart icon-avatar" />
+                          <ul style={{ minWidth: "150px" }}>
+                            <li>
+                              <a onClick={logout}>Logout</a>
+                            </li>
+                          </ul>
+                        </li>
+                      </div>
+                    )}
 
                     <div className="main-menu__btn-box">
                       <a

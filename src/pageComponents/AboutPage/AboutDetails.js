@@ -1,4 +1,4 @@
-  const AboutDetails = () => {
+const AboutDetails = () => {
   return (
     <section className="error-page">
       <div

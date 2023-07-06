@@ -69,6 +69,7 @@ const UserDetails = (props) => {
             value={userDetails.email}
             error={userDetailsErrors.email}
             onChange={(e) => updateUserDetails(e.target.value, "email")}
+            onBlur={props.findUserWithEmail}
           />
         </div>
       </div>

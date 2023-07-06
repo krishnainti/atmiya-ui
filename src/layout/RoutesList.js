@@ -10,6 +10,8 @@ import AboutPage from "../pageComponents/AboutPage";
 import Corporatepage from "../pageComponents/Corporatepage";
 import PvsaPage from "../pageComponents/PvsaPage";
 import Registered501 from "../pageComponents/501c3Page/Registered501";
+import ProtectedRoute from "../components/ProtectedRoute";
+import PendingProfiles from "../pageComponents/PendingProfiles";
 
 const RoutesList = () => {
   return (
@@ -19,14 +21,16 @@ const RoutesList = () => {
       <Route path="/corporate" element={<Corporatepage />} />
       <Route path="/pvsa" element={<PvsaPage />} />
       <Route path="/reg501c3" element={<Registered501 />} />
-      
+
       <Route path="/become-a-member" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />
       <Route path="/login" element={<Login />} />
+      <Route
+        path="/pending-profiles"
+        element={<ProtectedRoute isAdmin children={<PendingProfiles />} />}
+      />
 
       <Route path="*" element={<PageNotFound />} />
-      
-
     </Routes>
   );
 };
