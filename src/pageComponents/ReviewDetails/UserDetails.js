@@ -7,14 +7,16 @@ const UserDetails = (props) => {
 
   const { selectedGender, selectedMaritalStatus } = useMemo(() => {
     const selectedGender = genderOptions.find(
-      (i) => i.value === profile.gender
+      (i) => i.value === profile?.gender
     );
     const selectedMaritalStatus = maritalStatusOptions.find(
-      (i) => i.value === profile.marital_status
+      (i) => i.value === profile?.marital_status
     );
 
     return { selectedGender, selectedMaritalStatus };
   }, [profile]);
+
+  if (!profile) return null;
 
   return (
     <div className="row">

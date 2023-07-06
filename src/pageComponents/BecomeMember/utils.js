@@ -58,10 +58,11 @@ export const validateRegistrationFrom = ({
     userDetails.marital_status === "married"
   ) {
     const familyDetailsErrors = validateFamilyDetails(familyDetails);
+
     if (Object.keys(familyDetailsErrors).length) {
       if (
         Object.keys(familyDetailsErrors).length === 1 &&
-        familyDetailsErrors.family_members.length
+        familyDetailsErrors.family_members
       ) {
         const allFamilyMembersFilled = familyDetailsErrors.family_members.every(
           (item) => Object.keys(item).length === 0

@@ -3,6 +3,8 @@ import Item from "./Item";
 const AddressDetails = (props) => {
   const { profile, selectedState, selectedMetroArea } = props;
 
+  if (!profile) return null;
+
   return (
     <div className="row">
       <div className="col-xl-6">

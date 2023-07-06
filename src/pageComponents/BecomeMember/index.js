@@ -28,13 +28,15 @@ import {
   defaultUserDetails,
 } from "./consts";
 import { register } from "../../services/auth";
-import { setUser, setRoles, setProfile } from "../../store";
+import { setUser } from "../../store";
 
 const BecomeMember = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, profile } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
+
+  const profile = user?.profile;
 
   const [userDetails, setUserDetails] = useState({ ...defaultUserDetails });
   const [userDetailsErrors, setUserDetailsErrors] = useState({});
@@ -175,11 +177,13 @@ const BecomeMember = () => {
         paymentMode,
       });
 
+      if (user) {
+        payload.id = user.id;
+      }
+
       const response = await register(payload);
 
       dispatch(setUser(response.user));
-      dispatch(setRoles(response.roles));
-      dispatch(setProfile(response.profile));
 
       // TODO:: Handle payments for paypal and cards
 
