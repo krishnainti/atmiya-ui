@@ -29,6 +29,10 @@ const RoutesList = () => {
         path="/pending-profiles"
         element={<ProtectedRoute isAdmin children={<PendingProfiles />} />}
       />
+      <Route
+        path="/pending-profiles/:userId"
+        element={<ProtectedRoute isAdmin children={<div>User details</div>} />}
+      />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
