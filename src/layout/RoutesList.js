@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
 import HomePage from "../pageComponents/HomePage";
 import BecomeMember from "../pageComponents/BecomeMember";
 import PageNotFound from "../pageComponents/PageNotFound";
@@ -12,6 +11,12 @@ import PvsaPage from "../pageComponents/PvsaPage";
 import Registered501 from "../pageComponents/501c3Page/Registered501";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PendingProfiles from "../pageComponents/PendingProfiles";
+import Firepage from "../pageComponents/FireServicePages";
+import AsaraPage from "../pageComponents/AsaraService";
+import BestService from "../pageComponents/BestService";
+import RealWomenPage from "../pageComponents/RealWomen";
+import ImmigrationPage from "../pageComponents/Immigration";
+import CommunityPage from "../pageComponents/CommunityAffairs";
 
 const RoutesList = () => {
   return (
@@ -21,6 +26,12 @@ const RoutesList = () => {
       <Route path="/corporate" element={<Corporatepage />} />
       <Route path="/pvsa" element={<PvsaPage />} />
       <Route path="/reg501c3" element={<Registered501 />} />
+      <Route path="/fire" element={<Firepage />} />
+      <Route path="/asara" element={<AsaraPage />} />
+      <Route path="/best" element={<BestService />} />
+      <Route path="/women" element={<RealWomenPage />} />
+      <Route path="/immi" element={<ImmigrationPage />} />
+      <Route path="/community" element={<CommunityPage />} />
 
       <Route path="/become-a-member" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />
