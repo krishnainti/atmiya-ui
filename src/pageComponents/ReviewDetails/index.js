@@ -6,7 +6,6 @@ import PageHeader from "../../components/PageHeader";
 import UserDetails from "./UserDetails";
 import AddressDetails from "./AddressDetails";
 
-
 import {
   fetchChapterStates,
   fetchChapters,
@@ -149,11 +148,26 @@ const ReviewDetails = () => {
           </div>
 
           <div className="contact-page__form-box">
-            <div className="contact-form__block-heading">Personal Details</div>
+            <div
+              className="contact-form__block-heading"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              Personal Details{" "}
+              <button
+                className="thm-btn primary-button m-0"
+                onClick={() => navigate("/become-a-member")}
+              >
+                Edit Details
+              </button>
+            </div>
 
             <UserDetails profile={profile} user={user} />
 
-            <div className="divider mb-2" />
+            <div className="divider my-4" />
 
             <div className="contact-form__block-heading">Address</div>
 
@@ -163,7 +177,7 @@ const ReviewDetails = () => {
               selectedState={selectedState}
             />
 
-            <div className="divider mb-2" />
+            <div className="divider my-4" />
 
             <div className="contact-form__block-heading">
               Chapter Association
@@ -173,7 +187,7 @@ const ReviewDetails = () => {
               <Item label="Chapter you represent" value={chapterRepresent} />
             </div>
 
-            <div className="divider mb-2" />
+            <div className="divider my-4" />
 
             <div className="contact-form__block-heading">
               Membership Category
@@ -184,7 +198,7 @@ const ReviewDetails = () => {
               membershipCategories={membershipCategories}
             />
 
-            <div className="divider mb-2" />
+            <div className="divider my-4" />
 
             {profile?.spouse_first_name && (
               <>
@@ -193,7 +207,7 @@ const ReviewDetails = () => {
                 </div>
                 <FamilyDetails profile={profile} />
 
-                <div className="divider mb-2" />
+                <div className="divider my-4" />
               </>
             )}
 
@@ -213,9 +227,18 @@ const ReviewDetails = () => {
 
             <div className="row pt-5">
               <div className="col-xl-12">
-                <div className="contact-form__btn-box">
+                <div
+                  className="contact-form__btn-box"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <button
-                    className="thm-btn contact-form__btn"
+                    className="thm-btn contact-form__btn m-0"
+                    onClick={() => navigate("/become-a-member")}
+                  >
+                    Edit Details
+                  </button>
+                  <button
+                    className="thm-btn contact-form__btn m-0"
                     onClick={handleSubmit}
                   >
                     Submit

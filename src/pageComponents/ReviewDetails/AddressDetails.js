@@ -19,12 +19,12 @@ const AddressDetails = (props) => {
         <Item label="City" value={profile.city} />
       </div>
 
-      <div className={selectedMetroArea ? "col-xl-3" : "col-xl-6"}>
+      <div className="col-xl-6">
         <Item label="State" value={selectedState?.label} />
       </div>
 
       {selectedMetroArea && (
-        <div className="col-xl-3">
+        <div className="col-xl-6">
           <Item label="State" value={selectedMetroArea?.label} />
         </div>
       )}
