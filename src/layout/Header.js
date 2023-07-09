@@ -168,27 +168,27 @@ const Header = () => {
 
                       <ul>
                         <li>
-                          <a href="fire.html">F.I.R.E.</a>
+                          <a href="/fire">F.I.R.E.</a>
                         </li>
 
                         <li>
-                          <a href="asara.html">A.S.A.R.A.</a>
+                          <a href="/asara">A.S.A.R.A.</a>
                         </li>
 
                         <li>
-                          <a href="best.html">B.E.S.T.</a>
+                          <a href="/best">B.E.S.T.</a>
                         </li>
 
                         <li>
-                          <a href="women.html">Real Women</a>
+                          <a href="/women">Real Women</a>
                         </li>
 
                         <li>
-                          <a href="immi.html">Immigration</a>
+                          <a href="/immi">Immigration</a>
                         </li>
 
                         <li>
-                          <a href="community.html">Community Affairs</a>
+                          <a href="/community">Community Affairs</a>
                         </li>
                       </ul>
                     </li>
