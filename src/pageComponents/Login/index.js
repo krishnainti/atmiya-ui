@@ -20,9 +20,9 @@ const Login = () => {
       setLoginDetailsErrors({});
 
       const { isValid, errors } = validateLoginDetails(loginDetails);
+
       if (!isValid) {
-        setLoginDetailsErrors(errors);
-        return;
+        return setLoginDetailsErrors(errors);
       }
 
       const data = await login(loginDetails);
@@ -36,7 +36,7 @@ const Login = () => {
       if (isAdmin) {
         navigate("/pending-profiles");
       } else {
-        navigate("/review-details");
+        navigate("/my-profile");
       }
       window.location.reload();
     } catch (e) {
@@ -46,6 +46,12 @@ const Login = () => {
       } else if (e.response.status === 500) {
         if (e.response?.data?.message?.mode === "user_not_found") {
           setLoginDetailsErrors({ password: "Email or Password in correct" });
+        }
+
+        if (e.response?.data?.message?.mode === "profile_rejected") {
+          setLoginDetailsErrors({
+            password: "Your Profile rejected by Admin. Please contact admin.",
+          });
         }
 
         if (e.response?.data?.message?.mode === "profile_under_review") {

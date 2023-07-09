@@ -37,13 +37,23 @@ const ReviewDetails = (props) => {
 
   return (
     <>
-      <PageHeader
-        breadcrumb={[
-          { label: "Home", link: "/" },
-          { label: "Pending Profiles", link: "/pending-profiles" },
-        ]}
-        title="Review Profile"
-      />
+      {props.admin ? (
+        <PageHeader
+          breadcrumb={[
+            { label: "Home", link: "/" },
+            { label: "Pending Profiles", link: "/pending-profiles" },
+          ]}
+          title="Review Profile"
+        />
+      ) : (
+        <PageHeader
+          breadcrumb={[
+            { label: "Home", link: "/" },
+            { label: "Membership", link: "/" },
+          ]}
+          title="Become a Member"
+        />
+      )}
 
       <ReviewDetailsView
         showEditButton={!props.admin}
