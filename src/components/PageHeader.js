@@ -18,7 +18,8 @@ const PageHeader = (props) => {
               return (
                 <Fragment key={index}>
                   <li className={isLast ? "active" : ""}>
-                    {isLast ? item.label : <a href={item.link}>{item.label}</a>}
+                    <a href={item.link}>{item.label}</a>
+                    {/* {isLast ? item.label : <a href={item.link}>{item.label}</a>} */}
                   </li>
 
                   {!isLast && (

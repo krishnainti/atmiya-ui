@@ -27,11 +27,13 @@ const FamilyDetails = (props) => {
           <Item label="Spouse Phone" value={profile.spouse_phone} />
         </div>
 
-        <div className="col-xl-12">
-          <div className="contact-form__add-family-member pt-4">
-            Family Members:
+        {profile.family_members.length > 0 && (
+          <div className="col-xl-12">
+            <div className="contact-form__add-family-member pt-4">
+              Family Members:
+            </div>
           </div>
-        </div>
+        )}
 
         {profile.family_members.map((familyMember, index) => {
           return (
@@ -58,6 +60,10 @@ const FamilyDetails = (props) => {
 
               <div className="col-xl-6">
                 <Item label="Relationship" value={familyMember.relationship} />
+              </div>
+
+              <div className="col-xl-6">
+                <Item label="Gender" value={familyMember.gender} />
               </div>
             </Fragment>
           );

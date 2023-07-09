@@ -1,6 +1,8 @@
 import { Fragment } from "react";
+
 import TextInput from "../../components/TextInput";
 import SelectInput from "../../components/SelectInput";
+import { genderOptions, relationshipOptions } from "./consts";
 
 const defaultFamilyMember = {
   first_name: "",
@@ -8,7 +10,8 @@ const defaultFamilyMember = {
   age: "",
   email: "",
   phone: "",
-  relationship: "Child",
+  relationship: "",
+  gender: "",
 };
 
 const ageOptions = Array(18)
@@ -188,12 +191,32 @@ const FamilyDetails = (props) => {
               </div>
             </div>
 
-            <div className="col-xl-4">
+            <div className="col-xl-6">
               <div className="contact-form__input-box">
-                <TextInput
+                <SelectInput
                   placeholder="Relationship"
                   value={familyMember.relationship}
-                  disabled
+                  error={
+                    familyDetailsErrors.family_members?.[index]?.relationship
+                  }
+                  onChange={(e) =>
+                    updateFamilyMember(index, e.target.value, "relationship")
+                  }
+                  options={relationshipOptions}
+                />
+              </div>
+            </div>
+
+            <div className="col-xl-6">
+              <div className="contact-form__input-box">
+                <SelectInput
+                  placeholder="Gender"
+                  value={familyMember.gender}
+                  error={familyDetailsErrors.family_members?.[index]?.gender}
+                  onChange={(e) =>
+                    updateFamilyMember(index, e.target.value, "gender")
+                  }
+                  options={genderOptions}
                 />
               </div>
             </div>

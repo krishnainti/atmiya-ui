@@ -17,6 +17,7 @@ import BestService from "../pageComponents/BestService";
 import RealWomenPage from "../pageComponents/RealWomen";
 import ImmigrationPage from "../pageComponents/Immigration";
 import CommunityPage from "../pageComponents/CommunityAffairs";
+import MyProfile from "../pageComponents/MyProfile";
 
 const RoutesList = () => {
   return (
@@ -36,9 +37,18 @@ const RoutesList = () => {
       <Route path="/become-a-member" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />
       <Route path="/login" element={<Login />} />
+
       <Route
         path="/pending-profiles"
         element={<ProtectedRoute isAdmin children={<PendingProfiles />} />}
+      />
+      <Route
+        path="/pending-profiles/:userId"
+        element={<ProtectedRoute isAdmin children={<ReviewDetails admin />} />}
+      />
+      <Route
+        path="/my-profile"
+        element={<ProtectedRoute isAdmin children={<MyProfile />} />}
       />
 
       <Route path="*" element={<PageNotFound />} />

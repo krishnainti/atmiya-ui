@@ -1,4 +1,5 @@
 import "./App.css";
+import "../node_modules/sweetalert/dist/sweetalert.css";
 
 import { useEffect, useRef } from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -16,9 +17,9 @@ function App() {
     if (!appRef.current) {
       appRef.current = true;
 
-      let script = document.createElement("script");
+      const script = document.createElement("script");
       script.type = "text/javascript";
-      script.src = "assets/js/oxpins.js";
+      script.src = "/assets/js/oxpins.js";
       document.body.appendChild(script);
     }
   }, []);

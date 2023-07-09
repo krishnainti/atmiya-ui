@@ -142,6 +142,14 @@ const validateFamilyMember = (familyMember) => {
     familyMemberErrors.phone = "Enter Valid Phone Number";
   }
 
+  if (!familyMember.relationship) {
+    familyMemberErrors.relationship = "Select Relationship";
+  }
+
+  if (!familyMember.gender) {
+    familyMemberErrors.gender = "Select Gender";
+  }
+
   return familyMemberErrors;
 };
 
@@ -272,6 +280,7 @@ export const prepareRegisterPayload = ({
   passwordDetails,
   familyDetails,
   paymentMode,
+  selectedChapterState,
 }) => {
   return {
     reference_by: userDetails.reference_by,
@@ -286,7 +295,7 @@ export const prepareRegisterPayload = ({
     address_line_1: addressDetails.address_line_1,
     address_line_2: addressDetails.address_line_2,
     city: addressDetails.city,
-    state: +addressDetails.state,
+    state: selectedChapterState.id,
     metro_area: addressDetails.metro_area,
     zip_code: addressDetails.zip_code,
     country: addressDetails.country,

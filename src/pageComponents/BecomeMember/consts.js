@@ -72,3 +72,14 @@ export const maritalStatusOptions = [
     value: "married",
   },
 ];
+
+export const relationshipOptions = [
+  {
+    label: "Son",
+    value: "son",
+  },
+  {
+    label: "Daughter",
+    value: "daughter",
+  },
+];

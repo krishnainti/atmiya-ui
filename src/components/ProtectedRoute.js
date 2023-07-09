@@ -10,9 +10,10 @@ const ProtectedRoute = (props) => {
     return <Navigate to="/" />;
   }
 
-  if (props.isAdmin && !isAdmin) {
+  if (props.isAdmin && !isAdmin && !token) {
     return <Navigate to="/" />;
   }
+
   return children;
 };
 

@@ -16,7 +16,7 @@ const UserDetails = (props) => {
     return { selectedGender, selectedMaritalStatus };
   }, [profile]);
 
-  if (!profile) return null;
+  if (!profile || !user) return null;
 
   return (
     <div className="row">

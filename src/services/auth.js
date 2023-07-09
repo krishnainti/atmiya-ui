@@ -27,3 +27,15 @@ export const fetchReviewProfiles = (params) => {
     .get("api/review-profiles", { params })
     .then((res) => res.data.data || null);
 };
+
+export const fetchSingleReviewProfiles = (userId) => {
+  return axiosOb
+    .get(`api/review-profiles/${userId}`)
+    .then((res) => res.data.data || null);
+};
+
+export const updateProfilesStatus = (userId, status) => {
+  return axiosOb
+    .put(`api/review-profiles/${userId}/update-status`, { status })
+    .then((res) => res.data.data || null);
+};

@@ -8,7 +8,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { token } = useSelector((state) => state.user);
+  const { token, isAdmin } = useSelector((state) => state.user);
 
   const logout = () => {
     dispatch(clearUser());
@@ -223,15 +223,29 @@ const Header = () => {
                       <a href="#">Membership</a>
 
                       <ul>
-                        <li>
-                          <a href="/become-a-member">Become a Member</a>
-                        </li>
+                        {!token ? (
+                          <>
+                            <li>
+                              <a href="/become-a-member">Become a Member</a>
+                            </li>
 
-                        <li>
-                          <a href="/login">Login - Current Member</a>
-                        </li>
+                            <li>
+                              <a href="/login">Login - Current Member</a>
+                            </li>
+                          </>
+                        ) : (
+                          <li>
+                            <a href="/my-profile">My Profile</a>
+                          </li>
+                        )}
                       </ul>
                     </li>
+
+                    {token && isAdmin && (
+                      <li>
+                        <a href="/pending-profiles">Pending Profiles</a>
+                      </li>
+                    )}
 
                     <li>
                       <a href="contact.html">Contact</a>

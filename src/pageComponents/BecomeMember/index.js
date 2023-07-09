@@ -46,8 +46,6 @@ const BecomeMember = () => {
   });
   const [addressDetailsErrors, setAddressDetailsErrors] = useState({});
 
-  const [chapterRepresent, setChapterRepresent] = useState("");
-
   const [membershipDetails, setMembershipDetails] = useState({
     ...defaultMembershipDetails,
   });
@@ -66,6 +64,8 @@ const BecomeMember = () => {
   const [paymentMode, setPaymentMode] = useState("paypal");
 
   const [stateCodes, setStateCodes] = useState([]);
+  const [allStateCodes, setAllStateCodes] = useState([]);
+  const [allMetroAreas, setAllMetroAreas] = useState([]);
   const [membershipCategories, setMembershipCategories] = useState([]);
   const [chapters, setChapters] = useState([]);
   const [foundProfileByEmail, setFoundProfileByEmail] = useState(false);
@@ -84,44 +84,90 @@ const BecomeMember = () => {
   }, [user, profile]);
 
   const { metroAreasOptions } = useMemo(() => {
-    const selectedState = stateCodes.find(
-      (i) => i.value.toString() === addressDetails.state.toString()
+    const selectedStates = allStateCodes?.filter(
+      (i) => i.short_name === addressDetails.state
     );
+
     const metroAreasOptions =
-      selectedState?.original?.metro_areas?.map((i) => ({
-        value: i.id,
-        label: i.name,
-      })) || [];
+      selectedStates?.map((state) => {
+        return state.metro_areas?.map((i) => ({
+          value: i.id,
+          label: i.name,
+        }));
+      }) || [];
 
-    return { selectedState, metroAreasOptions };
-  }, [addressDetails.state, stateCodes]);
+    return { selectedStates, metroAreasOptions: metroAreasOptions.flat() };
+  }, [addressDetails, allStateCodes]);
 
-  useEffect(() => {
-    if (addressDetails.state) {
-      const chapterId = stateCodes.find(
-        (i) => i.value.toString() === addressDetails.state.toString()
-      )?.original?.chapter_id;
+  const { chapterRepresent, selectedChapterState } = useMemo(() => {
+    let chapterRepresent = "";
+    let selectedChapterState = null;
 
-      if (chapterId) {
-        const chapterOb = chapters.find(
-          (i) => i.id.toString() === chapterId.toString()
-        );
-        setChapterRepresent(chapterOb?.name || "");
-      }
+    if (addressDetails.metro_area) {
+      const selectedMetroArea = allMetroAreas.find(
+        (i) => i.id.toString() === addressDetails.metro_area.toString()
+      );
+
+      selectedChapterState = allStateCodes.find(
+        (i) =>
+          i.id.toString() === selectedMetroArea?.chapter_state_id.toString()
+      );
     }
-  }, [addressDetails, stateCodes, chapters]);
+
+    if (addressDetails.state && !metroAreasOptions.length) {
+      selectedChapterState = allStateCodes.find(
+        (i) => i.short_name === addressDetails.state
+      );
+    }
+
+    const chapterOb = chapters.find(
+      (i) => i.id.toString() === selectedChapterState?.chapter_id.toString()
+    );
+
+    chapterRepresent = chapterOb?.name || "";
+
+    return { chapterRepresent, selectedChapterState };
+  }, [
+    addressDetails,
+    chapters,
+    allMetroAreas,
+    allStateCodes,
+    metroAreasOptions,
+  ]);
 
   const getMasterData = async () => {
     try {
+      // Duplicate State codes [ "CA", "IA", "MO", "TX" ]
       const stateNames = await fetchChapterStates();
+      setAllStateCodes(stateNames);
+
+      if (user && profile) {
+        const selectedState = stateNames.find(
+          (i) => i.id.toString() === profile.state.toString()
+        );
+        setAddressDetails((prev) => ({
+          ...prev,
+          state: selectedState?.short_name,
+        }));
+      }
+
+      const metroAreasList = [];
 
       setStateCodes(
-        stateNames.map((i) => ({
-          label: i.short_name,
-          value: i.id,
-          original: i,
+        [
+          ...new Set(
+            stateNames.map((i) => {
+              metroAreasList.push(...(i.metro_areas || []));
+              return i.short_name;
+            })
+          ),
+        ].map((i) => ({
+          label: i,
+          value: i,
         }))
       );
+
+      setAllMetroAreas(metroAreasList);
 
       const membershipCategoriesData = await fetchMembershipCategories();
       setMembershipCategories(
@@ -176,6 +222,7 @@ const BecomeMember = () => {
         passwordDetails,
         familyDetails,
         paymentMode,
+        selectedChapterState,
       });
 
       if (user) {
@@ -208,7 +255,7 @@ const BecomeMember = () => {
     try {
       setFoundProfileByEmail(false);
       const response = await findProfileByEmail({ email: e.target.value });
-      console.log("response -->", response);
+
       if (response) {
         setFoundProfileByEmail(true);
         dispatch(setUser(response.user));
