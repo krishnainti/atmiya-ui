@@ -1,256 +1,62 @@
-import { useMemo, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 import PageHeader from "../../components/PageHeader";
-import UserDetails from "./UserDetails";
-import AddressDetails from "./AddressDetails";
 
-import {
-  fetchChapterStates,
-  fetchChapters,
-  fetchMembershipCategories,
-} from "../../services/masterData";
-import Item from "./Item";
-import MembershipDetails from "./MembershipDetails";
-import { paymentOptions } from "../BecomeMember/consts";
-import { submitProfile } from "../../services/auth";
-import { clearUser } from "../../store";
-import FamilyDetails from "./FamilyDetails";
+import { fetchSingleReviewProfiles } from "../../services/auth";
 
-const ReviewDetails = () => {
-  const dispatch = useDispatch();
+import ReviewDetailsView from "./ReviewDetailsView";
+import UserFooter from "./UserFooter";
+import AdminFooter from "./AdminFooter";
+
+const ReviewDetails = (props) => {
+  const { userId } = useParams();
+
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.user);
-  const profile = user?.profile;
+
+  const [userData, setUserData] = useState(user);
+
+  const profile = userData?.profile;
 
   useEffect(() => {
-    if (!profile) navigate("/");
+    if (!props.admin) {
+      if (!profile) navigate("/");
 
-    if (profile && !["pending", "payment_done"].includes(profile?.status)) {
-      navigate("/");
+      if (profile && !["pending", "payment_done"].includes(profile?.status)) {
+        navigate("/");
+      }
+    } else {
+      fetchSingleReviewProfiles(userId).then((res) => {
+        setUserData(res.user);
+      });
     }
-  }, [profile]);
-
-  const [stateCodes, setStateCodes] = useState([]);
-  const [membershipCategories, setMembershipCategories] = useState([]);
-  const [chapters, setChapters] = useState([]);
-
-  const { selectedMetroArea, selectedState, chapterRepresent } = useMemo(() => {
-    const selectedState = stateCodes.find(
-      (i) => i.value.toString() === profile?.state.toString()
-    );
-
-    const metroAreasOptions =
-      selectedState?.original?.metro_areas?.map((i) => ({
-        value: i.id,
-        label: i.name,
-      })) || [];
-
-    const selectedMetroArea = metroAreasOptions.find(
-      (i) => i.value.toString() === profile?.metro_area.toString()
-    );
-
-    const chapterId = stateCodes.find(
-      (i) => i.value.toString() === profile?.state.toString()
-    )?.original?.chapter_id;
-
-    let chapterRepresent = "";
-    if (chapterId) {
-      const chapterOb = chapters.find(
-        (i) => i.id.toString() === chapterId.toString()
-      );
-      chapterRepresent = chapterOb?.name || "";
-    }
-
-    return { selectedState, selectedMetroArea, chapterRepresent };
-  }, [profile, stateCodes, chapters]);
-
-  const getMasterData = async () => {
-    try {
-      const stateNames = await fetchChapterStates();
-
-      setStateCodes(
-        stateNames.map((i) => ({
-          label: i.short_name,
-          value: i.id,
-          original: i,
-        }))
-      );
-
-      const membershipCategoriesData = await fetchMembershipCategories();
-      setMembershipCategories(
-        membershipCategoriesData.map((i) => ({
-          label: i.name,
-          value: i.id,
-          original: i,
-        }))
-      );
-
-      const chaptersData = await fetchChapters();
-      setChapters(chaptersData);
-    } catch (e) {
-      console.log("Error while getMasterData", e);
-    }
-  };
-
-  useEffect(() => {
-    getMasterData();
   }, []);
-
-  const handleSubmit = async () => {
-    try {
-      const payload = {
-        user_id: user.id,
-      };
-
-      await submitProfile(payload);
-
-      dispatch(clearUser());
-
-      alert(
-        "Profile submitted. Please wait sometime admin will approve the profile."
-      );
-
-      navigate("/");
-    } catch (e) {
-      console.log("Error while handle submit", e);
-    }
-  };
 
   return (
     <>
       <PageHeader
         breadcrumb={[
           { label: "Home", link: "/" },
-          { label: "Membership", link: "/" },
+          { label: "Pending Profiles", link: "/pending-profiles" },
         ]}
-        title="Become a Member"
+        title="Review Profile"
       />
 
-      <section className="contact-three">
-        <div
-          className="contact-three-shape"
-          style={{
-            backgroundImage:
-              "url(assets/images/shapes/contact-three-shape.png)",
-          }}
-        />
-
-        <div className="container">
-          <div className="section-title text-center">
-            <span className="section-title__tagline">
-              Please Review Your Details
-            </span>
-
-            <h2 className="section-title__title">Review Details</h2>
-          </div>
-
-          <div className="contact-page__form-box">
-            <div
-              className="contact-form__block-heading"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              Personal Details{" "}
-              <button
-                className="thm-btn primary-button m-0"
-                onClick={() => navigate("/become-a-member")}
-              >
-                Edit Details
-              </button>
-            </div>
-
-            <UserDetails profile={profile} user={user} />
-
-            <div className="divider my-4" />
-
-            <div className="contact-form__block-heading">Address</div>
-
-            <AddressDetails
-              profile={profile}
-              selectedMetroArea={selectedMetroArea}
-              selectedState={selectedState}
-            />
-
-            <div className="divider my-4" />
-
-            <div className="contact-form__block-heading">
-              Chapter Association
-            </div>
-
-            <div className="col-xl-12">
-              <Item label="Chapter you represent" value={chapterRepresent} />
-            </div>
-
-            <div className="divider my-4" />
-
-            <div className="contact-form__block-heading">
-              Membership Category
-            </div>
-
-            <MembershipDetails
-              profile={profile}
-              membershipCategories={membershipCategories}
-            />
-
-            <div className="divider my-4" />
-
-            {profile?.spouse_first_name && (
-              <>
-                <div className="contact-form__block-heading">
-                  Family Details
-                </div>
-                <FamilyDetails profile={profile} />
-
-                <div className="divider my-4" />
-              </>
-            )}
-
-            <div className="contact-form__block-heading">Payment Options</div>
-            <div className="row">
-              <div className="col-xl-12">
-                <Item
-                  label="Payment Option"
-                  value={
-                    paymentOptions.find(
-                      (i) => i.value === profile?.payment_mode
-                    )?.label
-                  }
-                />
-              </div>
-            </div>
-
-            <div className="row pt-5">
-              <div className="col-xl-12">
-                <div
-                  className="contact-form__btn-box"
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <button
-                    className="thm-btn contact-form__btn m-0"
-                    onClick={() => navigate("/become-a-member")}
-                  >
-                    Edit Details
-                  </button>
-                  <button
-                    className="thm-btn contact-form__btn m-0"
-                    onClick={handleSubmit}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="result"></div>
-          </div>
-        </div>
-      </section>
+      <ReviewDetailsView
+        showEditButton={!props.admin}
+        profile={profile}
+        user={user}
+        Footer={
+          props.admin ? (
+            <AdminFooter user={userData} />
+          ) : (
+            <UserFooter user={userData} />
+          )
+        }
+      />
     </>
   );
 };

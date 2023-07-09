@@ -18,7 +18,7 @@ const PendingProfiles = () => {
 
   return (
     <div className="px-4 py-4" style={{ minHeight: "calc(100vh - 114px)" }}>
-      {profiles.length > 0 ? (
+      {users.length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -33,23 +33,21 @@ const PendingProfiles = () => {
           </thead>
 
           <tbody>
-            {profiles.map((profile, index) => {
+            {users.map((users, index) => {
               return (
                 <tr key={index}>
                   <td style={{ paddingLeft: "12px" }}>{index + 1}</td>
-                  <td>{profile.name}</td>
-                  <td>{profile.email}</td>
-                  <td>{profile?.profile?.phone}</td>
+                  <td>{users.name}</td>
+                  <td>{users.email}</td>
+                  <td>{users.profile?.phone}</td>
                   <td>{"chapter name"}</td>
                   <td style={{ textTransform: "capitalize" }}>
-                    {profile?.profile?.status?.split("_").join(" ")}
+                    {users.profile?.status?.split("_").join(" ")}
                   </td>
                   <td>
                     <button
                       className="primary-button"
-                      onClick={() =>
-                        navigate(`/pending-profiles/${profile.id}`)
-                      }
+                      onClick={() => navigate(`/pending-profiles/${users.id}`)}
                     >
                       Review
                     </button>
