@@ -23,6 +23,8 @@ import ExecutiveCommiteePage from "../pageComponents/ExecutiveComitte";
 import ServiceCoordinatorPage from "../pageComponents/ServiceCoordinators";
 import StateCoordinatorsPage from "../pageComponents/StateCoordinators";
 import CityCoordinatorPage from "../pageComponents/CityCoordinators";
+import ContactUs from "../pageComponents/Contact Us/ContactUs";
+import ContactUsPage from "../pageComponents/Contact Us";
 
 const RoutesList = () => {
   return (
@@ -43,6 +45,7 @@ const RoutesList = () => {
       <Route path="/service" element={<ServiceCoordinatorPage />} />
       <Route path="/state" element={<StateCoordinatorsPage />} />
       <Route path="/city" element={<CityCoordinatorPage/>} />
+      <Route path="/contact" element={<ContactUsPage/>} />
 
       <Route path="/become-a-member" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />
