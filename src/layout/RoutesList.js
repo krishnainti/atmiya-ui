@@ -18,6 +18,11 @@ import RealWomenPage from "../pageComponents/RealWomen";
 import ImmigrationPage from "../pageComponents/Immigration";
 import CommunityPage from "../pageComponents/CommunityAffairs";
 import MyProfile from "../pageComponents/MyProfile";
+import BoardDirectorPage from "../pageComponents/Leadership";
+import ExecutiveCommiteePage from "../pageComponents/ExecutiveComitte";
+import ServiceCoordinatorPage from "../pageComponents/ServiceCoordinators";
+import StateCoordinatorsPage from "../pageComponents/StateCoordinators";
+import CityCoordinatorPage from "../pageComponents/CityCoordinators";
 
 const RoutesList = () => {
   return (
@@ -33,6 +38,11 @@ const RoutesList = () => {
       <Route path="/women" element={<RealWomenPage />} />
       <Route path="/immi" element={<ImmigrationPage />} />
       <Route path="/community" element={<CommunityPage />} />
+      <Route path="/board" element={<BoardDirectorPage />} />
+      <Route path="/exec" element={<ExecutiveCommiteePage />} />
+      <Route path="/service" element={<ServiceCoordinatorPage />} />
+      <Route path="/state" element={<StateCoordinatorsPage />} />
+      <Route path="/city" element={<CityCoordinatorPage/>} />
 
       <Route path="/become-a-member" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />

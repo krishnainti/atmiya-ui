@@ -198,23 +198,23 @@ const Header = () => {
 
                       <ul>
                         <li>
-                          <a href="board.html">Board Directors</a>
+                          <a href="/board">Board Directors</a>
                         </li>
 
                         <li>
-                          <a href="exec.html">Executive Committees</a>
+                          <a href="/exec">Executive Committees</a>
                         </li>
 
                         <li>
-                          <a href="service.html">Service Coordinators</a>
+                          <a href="/service">Service Coordinators</a>
                         </li>
 
                         <li>
-                          <a href="state.html">State Coordinators</a>
+                          <a href="/state">State Coordinators</a>
                         </li>
 
                         <li>
-                          <a href="city.html">City Coordinators</a>
+                          <a href="/city">City Coordinators</a>
                         </li>
                       </ul>
                     </li>
