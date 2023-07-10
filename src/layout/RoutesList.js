@@ -23,6 +23,7 @@ import ExecutiveCommiteePage from "../pageComponents/ExecutiveComitte";
 import ServiceCoordinatorPage from "../pageComponents/ServiceCoordinators";
 import StateCoordinatorsPage from "../pageComponents/StateCoordinators";
 import CityCoordinatorPage from "../pageComponents/CityCoordinators";
+import CapturePaypalPayment from "../pageComponents/CapturePaypalPayment";
 
 const RoutesList = () => {
   return (
@@ -42,11 +43,16 @@ const RoutesList = () => {
       <Route path="/exec" element={<ExecutiveCommiteePage />} />
       <Route path="/service" element={<ServiceCoordinatorPage />} />
       <Route path="/state" element={<StateCoordinatorsPage />} />
-      <Route path="/city" element={<CityCoordinatorPage/>} />
+      <Route path="/city" element={<CityCoordinatorPage />} />
 
       <Route path="/become-a-member" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />
       <Route path="/login" element={<Login />} />
+
+      <Route
+        path="/capture-paypal-payment"
+        element={<CapturePaypalPayment />}
+      />
 
       <Route
         path="/pending-profiles"

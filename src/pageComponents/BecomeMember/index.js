@@ -235,9 +235,7 @@ const BecomeMember = () => {
 
       // TODO:: Handle payments for paypal and cards
 
-      navigate("/review-details");
-
-      console.log("response -->", response);
+      window.location.href = response.paymentDetails?.redirect_url;
     } catch (e) {
       console.log("error while handleSave", e);
       if (e.response.status === 422) {
