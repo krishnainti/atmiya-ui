@@ -2,12 +2,14 @@
   "name": "atmiya-ui",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://uat.atmiyausa.org/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "env-cmd": "^10.1.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
@@ -24,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "uat-build": "env-cmd -f uat.env react-scripts build",
+    "prod-build": "env-cmd -f prod.env react-scripts build"
   },
   "eslintConfig": {
     "extends": [

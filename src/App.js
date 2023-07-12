@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Provider store={webStore}>
         <PersistGate loading={null} persistor={webPersister}>
           <Layout />
