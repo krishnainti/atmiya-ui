@@ -3,6 +3,7 @@ const SelectInput = (props) => {
     <div>
       <label className="form-field-label">
         {props.label || props.placeholder}
+        {props.required && <span style={{ color: "red" }}> *</span>}
       </label>
       <select onChange={props.onChange} value={props.value}>
         <option value="" disabled>
