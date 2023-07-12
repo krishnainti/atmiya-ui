@@ -45,3 +45,9 @@ export const capturePaypalPayment = (token) => {
     .get(`api/capture-paypal-payment`, { params: { token } })
     .then((res) => res.data.data || null);
 };
+
+export const cancelPaypalPayment = (token) => {
+  return axiosOb
+    .get(`api/cancel-paypal-payment`, { params: { token } })
+    .then((res) => res.data.data || null);
+};

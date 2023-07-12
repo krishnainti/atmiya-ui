@@ -24,6 +24,7 @@ import ServiceCoordinatorPage from "../pageComponents/ServiceCoordinators";
 import StateCoordinatorsPage from "../pageComponents/StateCoordinators";
 import CityCoordinatorPage from "../pageComponents/CityCoordinators";
 import CapturePaypalPayment from "../pageComponents/CapturePaypalPayment";
+import CancelPaypalPayment from "../pageComponents/CancelPaypalPayment";
 
 const RoutesList = () => {
   return (
@@ -53,6 +54,8 @@ const RoutesList = () => {
         path="/capture-paypal-payment"
         element={<CapturePaypalPayment />}
       />
+
+      <Route path="/cancel-paypal-payment" element={<CancelPaypalPayment />} />
 
       <Route
         path="/pending-profiles"

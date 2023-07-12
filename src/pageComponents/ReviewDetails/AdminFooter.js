@@ -7,17 +7,20 @@ import { useState } from "react";
 const AdminFooter = (props) => {
   const navigate = useNavigate();
 
-  const { user } = props;
+  const { user, setLoading } = props;
 
   const [status, setStatus] = useState("");
 
   const handleSubmit = async (status = "admin_approved") => {
     try {
+      setLoading(true);
       await updateProfilesStatus(user.id, status);
 
       setStatus(status);
     } catch (e) {
       console.log("Error while handle submit", e);
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -356,6 +356,29 @@ ul {
   cursor: pointer;
 }
 
+.custom_loader {
+  position: fixed;
+  background-color: #6b7280;
+  background-position: center center;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0.5;
+}
+
 .preloader {
   position: fixed;
   background-color: #fff;

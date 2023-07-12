@@ -29,6 +29,7 @@ import {
 } from "./consts";
 import { findProfileByEmail, register } from "../../services/auth";
 import { setUser } from "../../store";
+import CustomLoader from "../../layout/CustomLoader";
 
 const BecomeMember = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const BecomeMember = () => {
 
   const profile = user?.profile;
 
+  const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState({ ...defaultUserDetails });
   const [userDetailsErrors, setUserDetailsErrors] = useState({});
 
@@ -161,10 +163,12 @@ const BecomeMember = () => {
               return i.short_name;
             })
           ),
-        ].map((i) => ({
-          label: i,
-          value: i,
-        }))
+        ]
+          .sort()
+          .map((i) => ({
+            label: i,
+            value: i,
+          }))
       );
 
       setAllMetroAreas(metroAreasList);
@@ -191,6 +195,8 @@ const BecomeMember = () => {
 
   const handleSave = async () => {
     try {
+      setLoading(true);
+
       setUserDetailsErrors({});
       setAddressDetailsErrors({});
       setMembershipDetailsErrors({});
@@ -233,9 +239,11 @@ const BecomeMember = () => {
 
       dispatch(setUser(response.user));
 
-      // TODO:: Handle payments for paypal and cards
-
-      window.location.href = response.paymentDetails?.redirect_url;
+      if (response.paymentDetails?.redirect_url) {
+        window.location.href = response.paymentDetails?.redirect_url;
+      } else {
+        navigate("/review-details");
+      }
     } catch (e) {
       console.log("error while handleSave", e);
       if (e.response.status === 422) {
@@ -246,6 +254,8 @@ const BecomeMember = () => {
         setPasswordDetailsErrors(errors.passwordDetailsErrors);
         setFamilyDetailsErrors(errors.familyDetailsErrors);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -265,6 +275,8 @@ const BecomeMember = () => {
 
   return (
     <>
+      {loading && <CustomLoader />}
+
       <PageHeader
         breadcrumb={[
           { label: "Home", link: "/" },
