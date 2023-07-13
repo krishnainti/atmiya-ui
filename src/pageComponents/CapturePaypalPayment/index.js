@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import SweetAlert from "sweetalert-react";
+import { useDispatch } from "react-redux";
 
 import { capturePaypalPayment } from "../../services/auth";
+import CustomLoader from "../../layout/CustomLoader";
+import { setUser } from "../../store";
 
 const CapturePaypalPayment = () => {
+  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const [paymentStatus, setPaymentStatus] = useState("");
 
@@ -20,6 +24,7 @@ const CapturePaypalPayment = () => {
       capturePaypalPayment(token)
         .then((res) => {
           setPaymentStatus("success");
+          dispatch(setUser(res.user));
         })
         .catch((e) => {
           setPaymentStatus("failed");
@@ -29,6 +34,7 @@ const CapturePaypalPayment = () => {
 
   return (
     <div>
+      <CustomLoader />
       <SweetAlert
         show={Boolean(paymentStatus)}
         title={paymentStatus === "success" ? "Success" : "Failed"}

@@ -1,6 +1,10 @@
 import SelectInput from "../../components/SelectInput";
 import TextInput from "../../components/TextInput";
-import { genderOptions, maritalStatusOptions } from "./consts";
+import {
+  countryCodeOptions,
+  genderOptions,
+  maritalStatusOptions,
+} from "./consts";
 
 const UserDetails = (props) => {
   const { userDetails, setUserDetails, userDetailsErrors } = props;
@@ -26,7 +30,22 @@ const UserDetails = (props) => {
         </div>
       </div>
 
-      <div className="col-xl-6">
+      <div className="col-xl-2">
+        <div className="contact-form__input-box">
+          <SelectInput
+            placeholder="Code"
+            value={userDetails.reference_phone_code}
+            error={userDetailsErrors.reference_phone_code}
+            onChange={(e) =>
+              updateUserDetails(e.target.value, "reference_phone_code")
+            }
+            options={countryCodeOptions}
+            required
+          />
+        </div>
+      </div>
+
+      <div className="col-xl-4">
         <div className="contact-form__input-box">
           <TextInput
             type="number"
@@ -79,7 +98,20 @@ const UserDetails = (props) => {
         </div>
       </div>
 
-      <div className="col-xl-6">
+      <div className="col-xl-2">
+        <div className="contact-form__input-box">
+          <SelectInput
+            placeholder="Code"
+            value={userDetails.phone_code}
+            error={userDetailsErrors.phone_code}
+            onChange={(e) => updateUserDetails(e.target.value, "phone_code")}
+            options={countryCodeOptions}
+            required
+          />
+        </div>
+      </div>
+
+      <div className="col-xl-4">
         <div className="contact-form__input-box">
           <TextInput
             type="number"

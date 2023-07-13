@@ -10975,7 +10975,6 @@ body.locked .page-wrapper {
   border: none;
   background-color: var(--oxpins-white);
   padding-left: 30px;
-  padding-right: 30px;
   outline: none;
   font-size: 14px;
   color: #707876;
@@ -11363,6 +11362,11 @@ table tbody tr:nth-child(even) {
 
 table tbody tr:hover {
   background-color: #ebebeb;
+}
+
+table th,
+td {
+  padding: 8px;
 }
 
 .primary-button {

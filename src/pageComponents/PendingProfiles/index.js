@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { fetchReviewProfiles } from "../../services/auth";
+import { fetchChapterStates, fetchChapters } from "../../services/masterData";
 
 const PendingProfiles = () => {
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
+
+  const [stateCodes, setStateCodes] = useState([]);
+  const [chapters, setChapters] = useState([]);
 
   useEffect(() => {
     fetchReviewProfiles()
@@ -16,8 +20,51 @@ const PendingProfiles = () => {
       .catch((e) => console.log("Error while fetchReviewProfiles", e));
   }, []);
 
+  const getChapterRepresent = (profile) => {
+    const chapterId = stateCodes.find(
+      (i) => i.value.toString() === profile?.state.toString()
+    )?.original?.chapter_id;
+
+    let chapterRepresent = "";
+
+    if (chapterId) {
+      const chapterOb = chapters.find(
+        (i) => i.id.toString() === chapterId.toString()
+      );
+      chapterRepresent = chapterOb?.name || "";
+    }
+
+    return chapterRepresent;
+  };
+
+  const getMasterData = async () => {
+    try {
+      const stateNames = await fetchChapterStates();
+
+      setStateCodes(
+        stateNames.map((i) => ({
+          label: i.short_name,
+          value: i.id,
+          original: i,
+        }))
+      );
+
+      const chaptersData = await fetchChapters();
+      setChapters(chaptersData);
+    } catch (e) {
+      console.log("Error while getMasterData", e);
+    }
+  };
+
+  useEffect(() => {
+    getMasterData();
+  }, []);
+
   return (
-    <div className="px-4 py-4" style={{ minHeight: "calc(100vh - 114px)" }}>
+    <div
+      className="px-4 py-4"
+      style={{ minHeight: "calc(100vh - 114px)", overflowX: "auto" }}
+    >
       {users.length > 0 ? (
         <table>
           <thead>
@@ -40,7 +87,7 @@ const PendingProfiles = () => {
                   <td>{users.name}</td>
                   <td>{users.email}</td>
                   <td>{users.profile?.phone}</td>
-                  <td>{"chapter name"}</td>
+                  <td>{getChapterRepresent(users.profile)}</td>
                   <td style={{ textTransform: "capitalize" }}>
                     {users.profile?.status?.split("_").join(" ")}
                   </td>

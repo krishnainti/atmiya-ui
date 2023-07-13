@@ -246,35 +246,47 @@ const Header = () => {
                       </ul>
                     </li>
 
-                    <li
-                      className={`dropdown ${
-                        ["/become-a-member", "/my-profile", "/login"].includes(
-                          location.pathname
-                        )
-                          ? "current"
-                          : ""
-                      } `}
-                    >
-                      <a href="#">Membership</a>
+                    {token && !isAdmin && (
+                      <li
+                        className={`dropdown ${
+                          ["/my-profile"].includes(location.pathname)
+                            ? "current"
+                            : ""
+                        } `}
+                      >
+                        <a href="#">Membership</a>
 
-                      <ul>
-                        {!token ? (
-                          <>
-                            <li>
-                              <a href="/become-a-member">Become a Member</a>
-                            </li>
-
-                            <li>
-                              <a href="/login">Login - Current Member</a>
-                            </li>
-                          </>
-                        ) : (
+                        <ul>
                           <li>
                             <a href="/my-profile">My Profile</a>
                           </li>
-                        )}
-                      </ul>
-                    </li>
+                        </ul>
+                      </li>
+                    )}
+
+                    {!token && (
+                      <li
+                        className={`dropdown ${
+                          ["/become-a-member", "/login"].includes(
+                            location.pathname
+                          )
+                            ? "current"
+                            : ""
+                        } `}
+                      >
+                        <a href="#">Membership</a>
+
+                        <ul>
+                          <li>
+                            <a href="/become-a-member">Become a Member</a>
+                          </li>
+
+                          <li>
+                            <a href="/login">Login - Current Member</a>
+                          </li>
+                        </ul>
+                      </li>
+                    )}
 
                     {token && isAdmin && (
                       <li

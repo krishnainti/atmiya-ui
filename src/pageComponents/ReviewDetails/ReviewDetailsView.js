@@ -164,8 +164,9 @@ const ReviewDetailsView = (props) => {
           )}
 
           <div className="contact-form__block-heading">Payment Options</div>
+
           <div className="row">
-            <div className="col-xl-12">
+            <div className="col-xl-6">
               <Item
                 label="Payment Option"
                 value={
@@ -174,6 +175,15 @@ const ReviewDetailsView = (props) => {
                 }
               />
             </div>
+
+            {profile?.payments?.length > 0 && (
+              <div className="col-xl-6">
+                <Item
+                  label="Payment Status"
+                  value={profile.payments[0].status}
+                />
+              </div>
+            )}
           </div>
 
           {props.Footer}

@@ -2,7 +2,11 @@ import { Fragment } from "react";
 
 import TextInput from "../../components/TextInput";
 import SelectInput from "../../components/SelectInput";
-import { genderOptions, relationshipOptions } from "./consts";
+import {
+  countryCodeOptions,
+  genderOptions,
+  relationshipOptions,
+} from "./consts";
 
 const defaultFamilyMember = {
   first_name: "",
@@ -10,6 +14,7 @@ const defaultFamilyMember = {
   age: "",
   email: "",
   phone: "",
+  phone_code: "+1",
   relationship: "",
   gender: "",
 };
@@ -98,7 +103,22 @@ const FamilyDetails = (props) => {
         </div>
       </div>
 
-      <div className="col-xl-6">
+      <div className="col-xl-2">
+        <div className="contact-form__input-box">
+          <SelectInput
+            placeholder="Code"
+            value={familyDetails.spouse_phone_code}
+            error={familyDetailsErrors.spouse_phone_code}
+            onChange={(e) =>
+              updateFamilyDetails(e.target.value, "spouse_phone_code")
+            }
+            options={countryCodeOptions}
+            required
+          />
+        </div>
+      </div>
+
+      <div className="col-xl-4">
         <div className="contact-form__input-box">
           <TextInput
             type="number"
@@ -185,7 +205,24 @@ const FamilyDetails = (props) => {
               </div>
             </div>
 
-            <div className="col-xl-6">
+            <div className="col-xl-2">
+              <div className="contact-form__input-box">
+                <SelectInput
+                  placeholder="Code"
+                  value={familyMember.phone_code}
+                  error={
+                    familyDetailsErrors.family_members?.[index]?.phone_code
+                  }
+                  onChange={(e) =>
+                    updateFamilyMember(index, e.target.value, "phone_code")
+                  }
+                  options={countryCodeOptions}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="col-xl-4">
               <div className="contact-form__input-box">
                 <TextInput
                   type="number"

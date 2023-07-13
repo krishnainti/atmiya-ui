@@ -284,11 +284,11 @@ export const prepareRegisterPayload = ({
 }) => {
   return {
     reference_by: userDetails.reference_by,
-    reference_phone: userDetails.reference_phone,
+    reference_phone: `${userDetails.reference_phone_code} ${userDetails.reference_phone}`,
     first_name: userDetails.first_name,
     last_name: userDetails.last_name,
     email: userDetails.email,
-    phone: userDetails.phone,
+    phone: `${userDetails.phone_code} ${userDetails.phone}`,
     marital_status: userDetails.marital_status,
     gender: userDetails.gender,
 
@@ -305,7 +305,7 @@ export const prepareRegisterPayload = ({
     spouse_first_name: familyDetails.spouse_first_name,
     spouse_last_name: familyDetails.spouse_last_name,
     spouse_email: familyDetails.spouse_email,
-    spouse_phone: familyDetails.spouse_phone,
+    spouse_phone: `${familyDetails.spouse_phone_code} ${familyDetails.spouse_phone}`,
     family_members: familyDetails.family_members,
 
     payment_mode: paymentMode,
@@ -416,22 +416,35 @@ export const prepareServerErrors = (errors) => {
   return errorsOb;
 };
 
+const getMobileNumbers = (mobileStr) => {
+  return {
+    code: mobileStr.substring(0, mobileStr.indexOf(" ")) || "+1",
+    phone: mobileStr.substring(mobileStr.indexOf(" ") + 1) || "",
+  };
+};
+
 export const prefillTheData = ({ user, profile }) => {
   const data = {
     userDetails: { ...defaultUserDetails },
-    addressDetails: defaultAddressDetails,
-    membershipDetails: defaultMembershipDetails,
-    passwordDetails: defaultPasswordDetails,
-    familyDetails: defaultFamilyDetails,
+    addressDetails: { ...defaultAddressDetails },
+    membershipDetails: { ...defaultMembershipDetails },
+    passwordDetails: { ...defaultPasswordDetails },
+    familyDetails: { ...defaultFamilyDetails },
     paymentMode: "paypal",
   };
 
+  const refPhone = getMobileNumbers(profile.reference_phone);
+  const userPhone = getMobileNumbers(profile.phone);
+  const spousePhone = getMobileNumbers(profile.spouse_phone);
+
   data.userDetails.reference_by = profile.reference_by;
-  data.userDetails.reference_phone = profile.reference_phone;
+  data.userDetails.reference_phone = refPhone.phone;
+  data.userDetails.reference_phone_code = refPhone.code;
   data.userDetails.first_name = profile.first_name;
   data.userDetails.last_name = profile.last_name;
   data.userDetails.email = user.email;
-  data.userDetails.phone = profile.phone;
+  data.userDetails.phone = userPhone.phone;
+  data.userDetails.phone_code = userPhone.code;
   data.userDetails.marital_status = profile.marital_status;
   data.userDetails.gender = profile.gender;
 
@@ -448,7 +461,8 @@ export const prefillTheData = ({ user, profile }) => {
   data.familyDetails.spouse_first_name = profile.spouse_first_name;
   data.familyDetails.spouse_last_name = profile.spouse_last_name;
   data.familyDetails.spouse_email = profile.spouse_email;
-  data.familyDetails.spouse_phone = profile.spouse_phone;
+  data.familyDetails.spouse_phone = spousePhone.phone;
+  data.familyDetails.spouse_phone_code = spousePhone.code;
   data.familyDetails.family_members = profile.family_members || [];
 
   data.paymentMode = profile.payment_mode;

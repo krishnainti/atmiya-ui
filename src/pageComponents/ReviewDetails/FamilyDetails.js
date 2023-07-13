@@ -37,7 +37,7 @@ const FamilyDetails = (props) => {
 
         {profile.family_members.map((familyMember, index) => {
           return (
-            <Fragment key={index}>
+            <div className="row" key={index} style={{ paddingTop: "10px" }}>
               <div className="col-xl-6">
                 <Item label="First Name" value={familyMember.first_name} />
               </div>
@@ -55,7 +55,10 @@ const FamilyDetails = (props) => {
               </div>
 
               <div className="col-xl-6">
-                <Item label="Phone" value={familyMember.phone} />
+                <Item
+                  label="Phone"
+                  value={`${familyMember.phone_code} ${familyMember.phone}`}
+                />
               </div>
 
               <div className="col-xl-6">
@@ -65,7 +68,7 @@ const FamilyDetails = (props) => {
               <div className="col-xl-6">
                 <Item label="Gender" value={familyMember.gender} />
               </div>
-            </Fragment>
+            </div>
           );
         })}
       </div>

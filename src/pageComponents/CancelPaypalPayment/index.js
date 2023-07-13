@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import SweetAlert from "sweetalert-react";
 
 import { cancelPaypalPayment } from "../../services/auth";
+import CustomLoader from "../../layout/CustomLoader";
 
 const CancelPaypalPayment = () => {
   const [searchParams] = useSearchParams();
@@ -25,6 +26,7 @@ const CancelPaypalPayment = () => {
 
   return (
     <div>
+      <CustomLoader />
       <SweetAlert
         show={Boolean(paymentStatus)}
         title={paymentStatus === "success" ? "Success" : "Failed"}
