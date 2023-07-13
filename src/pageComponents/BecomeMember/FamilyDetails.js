@@ -64,6 +64,7 @@ const FamilyDetails = (props) => {
             onChange={(e) =>
               updateFamilyDetails(e.target.value, "spouse_first_name")
             }
+            required
           />
         </div>
       </div>
@@ -77,6 +78,7 @@ const FamilyDetails = (props) => {
             onChange={(e) =>
               updateFamilyDetails(e.target.value, "spouse_last_name")
             }
+            required
           />
         </div>
       </div>
@@ -91,6 +93,7 @@ const FamilyDetails = (props) => {
             onChange={(e) =>
               updateFamilyDetails(e.target.value, "spouse_email")
             }
+            required
           />
         </div>
       </div>
@@ -105,6 +108,7 @@ const FamilyDetails = (props) => {
             onChange={(e) =>
               updateFamilyDetails(e.target.value, "spouse_phone")
             }
+            required
           />
         </div>
       </div>
@@ -132,6 +136,7 @@ const FamilyDetails = (props) => {
                   onChange={(e) =>
                     updateFamilyMember(index, e.target.value, "first_name")
                   }
+                  required
                 />
               </div>
             </div>
@@ -145,6 +150,7 @@ const FamilyDetails = (props) => {
                   onChange={(e) =>
                     updateFamilyMember(index, e.target.value, "last_name")
                   }
+                  required
                 />
               </div>
             </div>
@@ -159,6 +165,7 @@ const FamilyDetails = (props) => {
                     updateFamilyMember(index, e.target.value, "age")
                   }
                   options={ageOptions}
+                  required
                 />
               </div>
             </div>
@@ -173,6 +180,7 @@ const FamilyDetails = (props) => {
                   onChange={(e) =>
                     updateFamilyMember(index, e.target.value, "email")
                   }
+                  required
                 />
               </div>
             </div>
@@ -187,6 +195,7 @@ const FamilyDetails = (props) => {
                   onChange={(e) =>
                     updateFamilyMember(index, e.target.value, "phone")
                   }
+                  required
                 />
               </div>
             </div>
@@ -199,10 +208,15 @@ const FamilyDetails = (props) => {
                   error={
                     familyDetailsErrors.family_members?.[index]?.relationship
                   }
-                  onChange={(e) =>
-                    updateFamilyMember(index, e.target.value, "relationship")
-                  }
+                  onChange={(e) => {
+                    const familyMembers = familyDetails.family_members;
+                    familyMembers[index].relationship = e.target.value;
+                    familyMembers[index].gender =
+                      e.target.value === "son" ? "male" : "female";
+                    updateFamilyDetails(familyMembers, "family_members");
+                  }}
                   options={relationshipOptions}
+                  required
                 />
               </div>
             </div>
@@ -213,10 +227,15 @@ const FamilyDetails = (props) => {
                   placeholder="Gender"
                   value={familyMember.gender}
                   error={familyDetailsErrors.family_members?.[index]?.gender}
-                  onChange={(e) =>
-                    updateFamilyMember(index, e.target.value, "gender")
-                  }
+                  onChange={(e) => {
+                    const familyMembers = familyDetails.family_members;
+                    familyMembers[index].gender = e.target.value;
+                    familyMembers[index].relationship =
+                      e.target.value === "male" ? "son" : "daughter";
+                    updateFamilyDetails(familyMembers, "family_members");
+                  }}
                   options={genderOptions}
+                  required
                 />
               </div>
             </div>

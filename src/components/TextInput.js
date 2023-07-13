@@ -3,6 +3,7 @@ const TextInput = (props) => {
     <>
       <label className="form-field-label">
         {props.label || props.placeholder}
+        {props.required && <span style={{ color: "red" }}> *</span>}
       </label>
       <input
         {...props}

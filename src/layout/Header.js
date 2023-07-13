@@ -1,20 +1,10 @@
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
-import { clearUser } from "../store";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { token, isAdmin } = useSelector((state) => state.user);
 
-  const logout = () => {
-    dispatch(clearUser());
-    navigate("/");
-    window.location.reload();
-  };
+  const location = useLocation();
 
   return (
     <header className="main-header">
@@ -131,13 +121,25 @@ const Header = () => {
                   </a>
 
                   <ul className="main-menu__list">
-                    <li className="dropdown current megamenu">
+                    <li
+                      className={`dropdown megamenu ${
+                        location.pathname === "/" ? "current" : ""
+                      }`}
+                    >
                       <a href="/">Home </a>
 
                       <ul></ul>
                     </li>
 
-                    <li className="dropdown">
+                    <li
+                      className={`dropdown ${
+                        ["/about", "/reg501c3", "/corporate", "/pvsa"].includes(
+                          location.pathname
+                        )
+                          ? "current"
+                          : ""
+                      } `}
+                    >
                       <a href="#">About Us</a>
 
                       <ul>
@@ -163,7 +165,20 @@ const Header = () => {
                       </ul>
                     </li>
 
-                    <li className="dropdown">
+                    <li
+                      className={`dropdown ${
+                        [
+                          "/fire",
+                          "/asara",
+                          "/best",
+                          "/women",
+                          "/immi",
+                          "/community",
+                        ].includes(location.pathname)
+                          ? "current"
+                          : ""
+                      } `}
+                    >
                       <a href="#">Services</a>
 
                       <ul>
@@ -193,7 +208,19 @@ const Header = () => {
                       </ul>
                     </li>
 
-                    <li className="dropdown">
+                    <li
+                      className={`dropdown ${
+                        [
+                          "/board",
+                          "/exec",
+                          "/service",
+                          "/state",
+                          "/city",
+                        ].includes(location.pathname)
+                          ? "current"
+                          : ""
+                      } `}
+                    >
                       <a href="#">Leadership</a>
 
                       <ul>
@@ -219,7 +246,15 @@ const Header = () => {
                       </ul>
                     </li>
 
-                    <li className="dropdown">
+                    <li
+                      className={`dropdown ${
+                        ["/become-a-member", "/my-profile", "/login"].includes(
+                          location.pathname
+                        )
+                          ? "current"
+                          : ""
+                      } `}
+                    >
                       <a href="#">Membership</a>
 
                       <ul>
@@ -242,7 +277,13 @@ const Header = () => {
                     </li>
 
                     {token && isAdmin && (
-                      <li>
+                      <li
+                        className={`dropdown ${
+                          ["/pending-profiles"].includes(location.pathname)
+                            ? "current"
+                            : ""
+                        } `}
+                      >
                         <a href="/pending-profiles">Pending Profiles</a>
                       </li>
                     )}
@@ -266,9 +307,9 @@ const Header = () => {
                       <div className="main-menu__user-icon main-menu__list">
                         <li className="dropdown">
                           <a className="main-menu__cart icon-avatar" />
-                          <ul style={{ minWidth: "150px" }}>
+                          <ul style={{ minWidth: "200px" }}>
                             <li>
-                              <a onClick={logout}>Logout</a>
+                              <a href="/logout">Logout</a>
                             </li>
                           </ul>
                         </li>

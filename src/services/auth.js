@@ -39,3 +39,15 @@ export const updateProfilesStatus = (userId, status) => {
     .put(`api/review-profiles/${userId}/update-status`, { status })
     .then((res) => res.data.data || null);
 };
+
+export const capturePaypalPayment = (token) => {
+  return axiosOb
+    .get(`api/capture-paypal-payment`, { params: { token } })
+    .then((res) => res.data.data || null);
+};
+
+export const cancelPaypalPayment = (token) => {
+  return axiosOb
+    .get(`api/cancel-paypal-payment`, { params: { token } })
+    .then((res) => res.data.data || null);
+};

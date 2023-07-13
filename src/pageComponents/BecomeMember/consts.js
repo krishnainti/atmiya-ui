@@ -38,17 +38,17 @@ export const defaultFamilyDetails = {
 
 export const paymentOptions = [
   {
-    label: "Paypal",
+    label: "Paypal/Credit/DebitCard",
     value: "paypal",
   },
   {
     label: "Zelle",
     value: "zelle",
   },
-  {
-    label: "Credit/DebitCard",
-    value: "card",
-  },
+  // {
+  //   label: "Credit/DebitCard",
+  //   value: "card",
+  // },
 ];
 
 export const genderOptions = [

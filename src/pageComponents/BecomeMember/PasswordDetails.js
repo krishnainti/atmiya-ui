@@ -20,6 +20,7 @@ const PasswordDetails = (props) => {
             value={passwordDetails.password}
             error={passwordDetailsErrors.password}
             onChange={(e) => updatePasswordDetails(e.target.value, "password")}
+            required
           />
         </div>
       </div>
@@ -34,6 +35,7 @@ const PasswordDetails = (props) => {
             onChange={(e) =>
               updatePasswordDetails(e.target.value, "confirm_password")
             }
+            required
           />
         </div>
       </div>

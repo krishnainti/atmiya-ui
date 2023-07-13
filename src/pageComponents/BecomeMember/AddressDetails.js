@@ -28,6 +28,7 @@ const AddressDetails = (props) => {
             onChange={(e) =>
               updateAddressDetails(e.target.value, "address_line_1")
             }
+            required
           />
         </div>
       </div>
@@ -52,6 +53,7 @@ const AddressDetails = (props) => {
             value={addressDetails.city}
             error={addressDetailsErrors.city}
             onChange={(e) => updateAddressDetails(e.target.value, "city")}
+            required
           />
         </div>
       </div>
@@ -70,6 +72,7 @@ const AddressDetails = (props) => {
               });
             }}
             options={stateCodes}
+            required
           />
         </div>
       </div>
@@ -85,6 +88,7 @@ const AddressDetails = (props) => {
                 updateAddressDetails(e.target.value, "metro_area")
               }
               options={metroAreasOptions}
+              required
             />
           </div>
         </div>
@@ -98,6 +102,7 @@ const AddressDetails = (props) => {
             error={addressDetailsErrors.zip_code}
             onChange={(e) => updateAddressDetails(e.target.value, "zip_code")}
             type="number"
+            required
           />
         </div>
       </div>

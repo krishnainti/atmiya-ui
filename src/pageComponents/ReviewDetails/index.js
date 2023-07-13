@@ -9,6 +9,7 @@ import { fetchSingleReviewProfiles } from "../../services/auth";
 import ReviewDetailsView from "./ReviewDetailsView";
 import UserFooter from "./UserFooter";
 import AdminFooter from "./AdminFooter";
+import CustomLoader from "../../layout/CustomLoader";
 
 const ReviewDetails = (props) => {
   const { userId } = useParams();
@@ -17,6 +18,7 @@ const ReviewDetails = (props) => {
 
   const { user } = useSelector((state) => state.user);
 
+  const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(user);
 
   const profile = userData?.profile;
@@ -37,6 +39,7 @@ const ReviewDetails = (props) => {
 
   return (
     <>
+      {loading && <CustomLoader />}
       {props.admin ? (
         <PageHeader
           breadcrumb={[
@@ -61,9 +64,9 @@ const ReviewDetails = (props) => {
         user={user}
         Footer={
           props.admin ? (
-            <AdminFooter user={userData} />
+            <AdminFooter user={userData} setLoading={setLoading} />
           ) : (
-            <UserFooter user={userData} />
+            <UserFooter user={userData} setLoading={setLoading} />
           )
         }
       />

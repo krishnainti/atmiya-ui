@@ -44,6 +44,7 @@ const MembershipDetails = (props) => {
               updateMembershipDetails(e.target.value, "membership_category")
             }
             options={membershipCategories}
+            required
           />
         </div>
       </div>

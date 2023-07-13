@@ -21,6 +21,7 @@ const UserDetails = (props) => {
             value={userDetails.reference_by}
             error={userDetailsErrors.reference_by}
             onChange={(e) => updateUserDetails(e.target.value, "reference_by")}
+            required
           />
         </div>
       </div>
@@ -35,6 +36,7 @@ const UserDetails = (props) => {
             onChange={(e) =>
               updateUserDetails(e.target.value, "reference_phone")
             }
+            required
           />
         </div>
       </div>
@@ -46,6 +48,7 @@ const UserDetails = (props) => {
             value={userDetails.first_name}
             error={userDetailsErrors.first_name}
             onChange={(e) => updateUserDetails(e.target.value, "first_name")}
+            required
           />
         </div>
       </div>
@@ -57,6 +60,7 @@ const UserDetails = (props) => {
             value={userDetails.last_name}
             error={userDetailsErrors.last_name}
             onChange={(e) => updateUserDetails(e.target.value, "last_name")}
+            required
           />
         </div>
       </div>
@@ -70,6 +74,7 @@ const UserDetails = (props) => {
             error={userDetailsErrors.email}
             onChange={(e) => updateUserDetails(e.target.value, "email")}
             onBlur={props.findUserWithEmail}
+            required
           />
         </div>
       </div>
@@ -82,6 +87,7 @@ const UserDetails = (props) => {
             value={userDetails.phone}
             error={userDetailsErrors.phone}
             onChange={(e) => updateUserDetails(e.target.value, "phone")}
+            required
           />
         </div>
       </div>
@@ -96,6 +102,7 @@ const UserDetails = (props) => {
               updateUserDetails(e.target.value, "marital_status")
             }
             options={maritalStatusOptions}
+            required
           />
         </div>
       </div>
@@ -108,6 +115,7 @@ const UserDetails = (props) => {
             error={userDetailsErrors.gender}
             onChange={(e) => updateUserDetails(e.target.value, "gender")}
             options={genderOptions}
+            required
           />
         </div>
       </div>
