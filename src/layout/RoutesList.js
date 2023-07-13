@@ -23,6 +23,7 @@ import ExecutiveCommiteePage from "../pageComponents/ExecutiveComitte";
 import ServiceCoordinatorPage from "../pageComponents/ServiceCoordinators";
 import StateCoordinatorsPage from "../pageComponents/StateCoordinators";
 import CityCoordinatorPage from "../pageComponents/CityCoordinators";
+import ContactUsPage from "../pageComponents/ContactUs";
 import CapturePaypalPayment from "../pageComponents/CapturePaypalPayment";
 import CancelPaypalPayment from "../pageComponents/CancelPaypalPayment";
 import Logout from "../pageComponents/Logout";
@@ -46,6 +47,7 @@ const RoutesList = () => {
       <Route path="/service" element={<ServiceCoordinatorPage />} />
       <Route path="/state" element={<StateCoordinatorsPage />} />
       <Route path="/city" element={<CityCoordinatorPage />} />
+      <Route path="/contact" element={<ContactUsPage />} />
 
       <Route path="/become-a-member" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />
