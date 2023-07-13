@@ -27,6 +27,7 @@ import ContactUsPage from "../pageComponents/ContactUs";
 import CapturePaypalPayment from "../pageComponents/CapturePaypalPayment";
 import CancelPaypalPayment from "../pageComponents/CancelPaypalPayment";
 import Logout from "../pageComponents/Logout";
+import ProfileSuccess from "../pageComponents/ProfileSuccess";
 
 const RoutesList = () => {
   return (
@@ -48,18 +49,17 @@ const RoutesList = () => {
       <Route path="/state" element={<StateCoordinatorsPage />} />
       <Route path="/city" element={<CityCoordinatorPage />} />
       <Route path="/contact" element={<ContactUsPage />} />
-
-      <Route path="/become-a-member" element={<BecomeMember />} />
-      <Route path="/review-details" element={<ReviewDetails />} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
 
+      <Route path="/become-a-member" element={<BecomeMember />} />
+      <Route path="/review-details" element={<ReviewDetails />} />
       <Route
         path="/capture-paypal-payment"
         element={<CapturePaypalPayment />}
       />
-
       <Route path="/cancel-paypal-payment" element={<CancelPaypalPayment />} />
+      <Route path="/profile-success" element={<ProfileSuccess />} />
 
       <Route
         path="/pending-profiles"

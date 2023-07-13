@@ -24,11 +24,16 @@ const UserFooter = (props) => {
 
       await submitProfile(payload);
 
+      localStorage.setItem(
+        "membership_category",
+        user.profile.membership_category
+      );
+
+      localStorage.setItem("payment_mode", user.profile.payment_mode);
+
       dispatch(clearUser());
 
-      setAlertMsg(
-        "Profile submitted. Please wait sometime admin will approve the profile."
-      );
+      navigate("/profile-success");
     } catch (e) {
       console.log("Error while handle submit", e);
     } finally {
@@ -44,9 +49,7 @@ const UserFooter = (props) => {
         text={alertMsg}
         onConfirm={() => {
           setAlertMsg("");
-          setTimeout(() => {
-            navigate("/");
-          }, 500);
+          setTimeout(() => {}, 500);
         }}
       />
 
