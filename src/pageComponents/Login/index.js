@@ -43,7 +43,7 @@ const Login = () => {
       console.log("Error while handleLogin", e);
       if (e.response.status === 422) {
         // set validation errors properly
-      } else if (e.response.status === 500) {
+      } else if (e.response?.status === 500) {
         if (e.response?.data?.message?.mode === "user_not_found") {
           setLoginDetailsErrors({ password: "Email or Password in correct" });
         }

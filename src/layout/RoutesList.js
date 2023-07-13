@@ -25,6 +25,7 @@ import StateCoordinatorsPage from "../pageComponents/StateCoordinators";
 import CityCoordinatorPage from "../pageComponents/CityCoordinators";
 import CapturePaypalPayment from "../pageComponents/CapturePaypalPayment";
 import CancelPaypalPayment from "../pageComponents/CancelPaypalPayment";
+import Logout from "../pageComponents/Logout";
 
 const RoutesList = () => {
   return (
@@ -49,6 +50,7 @@ const RoutesList = () => {
       <Route path="/become-a-member" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
 
       <Route
         path="/capture-paypal-payment"
