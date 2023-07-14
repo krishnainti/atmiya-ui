@@ -45,6 +45,7 @@ const MembershipDetails = (props) => {
             }
             options={membershipCategories}
             required
+            disabled={props.disabled}
           />
         </div>
       </div>

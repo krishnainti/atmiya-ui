@@ -23,19 +23,27 @@ import PaymentOptions from "./PaymentOptions";
 import {
   defaultAddressDetails,
   defaultFamilyDetails,
+  defaultIndianOriginDetails,
   defaultMembershipDetails,
   defaultPasswordDetails,
   defaultUserDetails,
 } from "./consts";
-import { findProfileByEmail, register } from "../../services/auth";
+import {
+  findProfileByEmail,
+  register,
+  updateMyProfile,
+} from "../../services/auth";
 import { setUser } from "../../store";
 import CustomLoader from "../../layout/CustomLoader";
+import IndianOrigin from "./IndianOrigin";
 
 const BecomeMember = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.user);
+  const { user, token, isAdmin } = useSelector((state) => state.user);
+
+  const isLoggedInUser = !isAdmin && token;
 
   const profile = user?.profile;
 
@@ -63,6 +71,13 @@ const BecomeMember = () => {
   });
   const [familyDetailsErrors, setFamilyDetailsErrors] = useState({});
 
+  const [indianOriginDetails, setIndianOriginDetails] = useState({
+    ...defaultIndianOriginDetails,
+  });
+  const [indianOriginDetailsErrors, setIndianOriginDetailsErrors] = useState(
+    {}
+  );
+
   const [paymentMode, setPaymentMode] = useState("paypal");
 
   const [stateCodes, setStateCodes] = useState([]);
@@ -82,6 +97,7 @@ const BecomeMember = () => {
       setPasswordDetails(formData.passwordDetails);
       setFamilyDetails(formData.familyDetails);
       setPaymentMode(formData.paymentMode);
+      setIndianOriginDetails(formData.indianOriginDetails);
     }
   }, [user, profile]);
 
@@ -202,6 +218,7 @@ const BecomeMember = () => {
       setMembershipDetailsErrors({});
       setPasswordDetailsErrors({});
       setFamilyDetailsErrors({});
+      setIndianOriginDetailsErrors({});
 
       const { isValid, errors } = validateRegistrationFrom({
         userDetails,
@@ -210,6 +227,7 @@ const BecomeMember = () => {
         passwordDetails,
         familyDetails,
         stateCodes,
+        indianOriginDetails,
       });
 
       if (!isValid) {
@@ -218,6 +236,7 @@ const BecomeMember = () => {
         setMembershipDetailsErrors(errors.membershipDetailsErrors);
         setPasswordDetailsErrors(errors.passwordDetailsErrors);
         setFamilyDetailsErrors(errors.familyDetailsErrors);
+        setIndianOriginDetailsErrors(errors.indianOriginDetailsErrors);
         return;
       }
 
@@ -229,15 +248,26 @@ const BecomeMember = () => {
         familyDetails,
         paymentMode,
         selectedChapterState,
+        indianOriginDetails,
       });
 
       if (user) {
         payload.id = user.id;
       }
 
-      const response = await register(payload);
+      let response = null;
 
-      dispatch(setUser(response.user));
+      if (isLoggedInUser) {
+        response = await updateMyProfile(payload);
+      } else {
+        response = await register(payload);
+      }
+
+      response && dispatch(setUser(response.user));
+
+      if (isLoggedInUser) {
+        return navigate("/my-profile");
+      }
 
       if (response.paymentDetails?.redirect_url) {
         window.location.href = response.paymentDetails?.redirect_url;
@@ -261,6 +291,8 @@ const BecomeMember = () => {
 
   const findUserWithEmail = async (e) => {
     try {
+      if (isLoggedInUser) return;
+
       setFoundProfileByEmail(false);
       const response = await findProfileByEmail({ email: e.target.value });
 
@@ -282,7 +314,7 @@ const BecomeMember = () => {
           { label: "Home", link: "/" },
           { label: "Membership", link: "/" },
         ]}
-        title="Become a Member"
+        title={isLoggedInUser ? "My Profile" : "Become a Member"}
       />
 
       <section className="contact-three">
@@ -297,10 +329,14 @@ const BecomeMember = () => {
         <div className="container">
           <div className="section-title text-center">
             <span className="section-title__tagline">
-              Please Share Your Details
+              {isLoggedInUser
+                ? "Please Update Your Details"
+                : "Please Share Your Details"}
             </span>
 
-            <h2 className="section-title__title">Become a Member</h2>
+            {!isLoggedInUser && (
+              <h2 className="section-title__title">Become a Member</h2>
+            )}
           </div>
 
           {userDetails.email && foundProfileByEmail && (
@@ -366,6 +402,7 @@ const BecomeMember = () => {
               setMembershipDetails={setMembershipDetails}
               membershipDetailsErrors={membershipDetailsErrors}
               membershipCategories={membershipCategories}
+              disabled={isLoggedInUser}
             />
 
             <div className="divider mb-2" />
@@ -396,11 +433,21 @@ const BecomeMember = () => {
                 </>
               )}
 
+            <div className="contact-form__block-heading">Indian Origin</div>
+
+            <IndianOrigin
+              indianOriginDetails={indianOriginDetails}
+              setIndianOriginDetails={setIndianOriginDetails}
+              indianOriginDetailsErrors={indianOriginDetailsErrors}
+            />
+            <div className="divider mb-2" />
+
             <div className="contact-form__block-heading">Payment Options</div>
 
             <PaymentOptions
               paymentMode={paymentMode}
               setPaymentMode={setPaymentMode}
+              disabled={isLoggedInUser}
             />
 
             <div className="row pt-5">
@@ -410,7 +457,7 @@ const BecomeMember = () => {
                     className="thm-btn contact-form__btn"
                     onClick={handleSave}
                   >
-                    Next
+                    {isLoggedInUser ? "Update" : "Next"}
                   </button>
                 </div>
               </div>

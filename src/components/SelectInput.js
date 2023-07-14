@@ -5,7 +5,11 @@ const SelectInput = (props) => {
         {props.label || props.placeholder}
         {props.required && <span style={{ color: "red" }}> *</span>}
       </label>
-      <select onChange={props.onChange} value={props.value}>
+      <select
+        onChange={props.onChange}
+        value={props.value}
+        disabled={props.disabled}
+      >
         <option value="" disabled>
           {props.placeholder}
         </option>

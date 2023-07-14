@@ -277,6 +277,15 @@ ul {
   top: -40%;
 }
 
+.thm-btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.thm-btn-disabled:hover {
+  color:unset;
+}
+
 .section-title {
   position: relative;
   display: block;

@@ -51,3 +51,9 @@ export const cancelPaypalPayment = (token) => {
     .get(`api/cancel-paypal-payment`, { params: { token } })
     .then((res) => res.data.data || null);
 };
+
+export const updateMyProfile = (payload) => {
+  return axiosOb
+    .patch(`api/profile`, payload)
+    .then((res) => res.data.data || null);
+};

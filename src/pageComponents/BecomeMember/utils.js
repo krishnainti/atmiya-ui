@@ -2,6 +2,7 @@ import { isValidPhoneNumber, isValidZipCode, validateEmail } from "../../utils";
 import {
   defaultAddressDetails,
   defaultFamilyDetails,
+  defaultIndianOriginDetails,
   defaultMembershipDetails,
   defaultPasswordDetails,
   defaultUserDetails,
@@ -14,6 +15,7 @@ export const validateRegistrationFrom = ({
   passwordDetails,
   familyDetails,
   stateCodes,
+  indianOriginDetails,
 }) => {
   let isValid = true;
   const errors = {
@@ -22,6 +24,7 @@ export const validateRegistrationFrom = ({
     membershipDetailsErrors: {},
     passwordDetailsErrors: {},
     familyDetailsErrors: {},
+    indianOriginDetailsErrors: {},
   };
 
   const userDetailsErrors = validateUserDetails(userDetails);
@@ -77,7 +80,28 @@ export const validateRegistrationFrom = ({
     }
   }
 
+  const indianOriginDetailsErrors =
+    validateIndianOriginDetails(indianOriginDetails);
+  if (Object.keys(indianOriginDetailsErrors).length) {
+    isValid = false;
+    errors.indianOriginDetailsErrors = indianOriginDetailsErrors;
+  }
+
   return { isValid, errors };
+};
+
+const validateIndianOriginDetails = (indianOriginDetails) => {
+  const indianOriginDetailsErrors = {};
+
+  if (!indianOriginDetails.india_state) {
+    indianOriginDetailsErrors.india_state = "Select State";
+  }
+
+  if (!indianOriginDetails.india_city) {
+    indianOriginDetailsErrors.india_city = "Enter City Name";
+  }
+
+  return indianOriginDetailsErrors;
 };
 
 const validateFamilyDetails = (familyDetails) => {
@@ -281,6 +305,7 @@ export const prepareRegisterPayload = ({
   familyDetails,
   paymentMode,
   selectedChapterState,
+  indianOriginDetails,
 }) => {
   return {
     reference_by: userDetails.reference_by,
@@ -312,6 +337,9 @@ export const prepareRegisterPayload = ({
 
     password: passwordDetails.password,
     confirm_password: passwordDetails.confirm_password,
+
+    india_state: indianOriginDetails.india_state,
+    india_city: indianOriginDetails.india_city,
   };
 };
 
@@ -322,6 +350,7 @@ export const prepareServerErrors = (errors) => {
     membershipDetailsErrors: {},
     passwordDetailsErrors: {},
     familyDetailsErrors: {},
+    indianOriginDetailsErrors: {},
   };
 
   // personal details
@@ -413,13 +442,22 @@ export const prepareServerErrors = (errors) => {
     errorsOb.familyDetailsErrors.spouse_phone = errors.spouse_phone;
   }
 
+  // India details
+  if (errors.india_state) {
+    errorsOb.indianOriginDetailsErrors.india_state = errors.india_state;
+  }
+
+  if (errors.india_city) {
+    errorsOb.indianOriginDetailsErrors.india_city = errors.india_city;
+  }
+
   return errorsOb;
 };
 
 const getMobileNumbers = (mobileStr) => {
   return {
-    code: mobileStr.substring(0, mobileStr.indexOf(" ")) || "+1",
-    phone: mobileStr.substring(mobileStr.indexOf(" ") + 1) || "",
+    code: mobileStr?.substring(0, mobileStr.indexOf(" ")) || "+1",
+    phone: mobileStr?.substring(mobileStr.indexOf(" ") + 1) || "",
   };
 };
 
@@ -431,6 +469,7 @@ export const prefillTheData = ({ user, profile }) => {
     passwordDetails: { ...defaultPasswordDetails },
     familyDetails: { ...defaultFamilyDetails },
     paymentMode: "paypal",
+    indianOriginDetails: { ...defaultIndianOriginDetails },
   };
 
   const refPhone = getMobileNumbers(profile.reference_phone);
@@ -466,6 +505,9 @@ export const prefillTheData = ({ user, profile }) => {
   data.familyDetails.family_members = profile.family_members || [];
 
   data.paymentMode = profile.payment_mode;
+
+  data.indianOriginDetails.india_state = profile.india_state || "";
+  data.indianOriginDetails.india_city = profile.india_city || "";
 
   return data;
 };

@@ -11,6 +11,7 @@ const UserFooter = (props) => {
   const navigate = useNavigate();
 
   const [alertMsg, setAlertMsg] = useState("");
+  const [disclaimer, setDisclaimer] = useState(false);
 
   const { user, setLoading } = props;
 
@@ -40,36 +41,64 @@ const UserFooter = (props) => {
       setLoading(false);
     }
   };
-  return (
-    <div className="row pt-5">
-      <SweetAlert
-        show={Boolean(alertMsg)}
-        confirmButtonText="Go to Home"
-        title="Profile Submitted"
-        text={alertMsg}
-        onConfirm={() => {
-          setAlertMsg("");
-          setTimeout(() => {}, 500);
-        }}
-      />
 
-      <div className="col-xl-12">
-        <div
-          className="contact-form__btn-box"
-          style={{ display: "flex", justifyContent: "space-between" }}
+  return (
+    <div>
+      <div
+        className="form-check d-flex align-items-center"
+        style={{ gap: "10px" }}
+      >
+        <input
+          className="form-check-input"
+          type="checkbox"
+          id="disclaimer"
+          checked={disclaimer}
+          onChange={(e) => setDisclaimer(e.target.checked)}
+        />
+        <label
+          className="form-check-label"
+          htmlFor="disclaimer"
+          style={{ paddingTop: "4px" }}
         >
-          <button
-            className="thm-btn contact-form__btn m-0"
-            onClick={() => navigate("/become-a-member")}
+          I agree to the terms and conditions of ATMIYAUSA.ORG
+        </label>
+      </div>
+
+      <div className="row pt-5">
+        <SweetAlert
+          show={Boolean(alertMsg)}
+          confirmButtonText="Go to Home"
+          title="Profile Submitted"
+          text={alertMsg}
+          onConfirm={() => {
+            setAlertMsg("");
+            setTimeout(() => {}, 500);
+          }}
+        />
+
+        <div className="col-xl-12">
+          <div
+            className="contact-form__btn-box"
+            style={{ display: "flex", justifyContent: "space-between" }}
           >
-            Edit Details
-          </button>
-          <button
-            className="thm-btn contact-form__btn m-0"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
+            <button
+              className="thm-btn contact-form__btn m-0"
+              onClick={() => navigate("/become-a-member")}
+            >
+              Edit Details
+            </button>
+
+            {console.log("disclaimer -->", disclaimer)}
+            <button
+              className={`thm-btn contact-form__btn m-0 ${
+                !disclaimer ? "thm-btn-disabled" : ""
+              }`}
+              onClick={handleSubmit}
+              disabled={!disclaimer}
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </div>

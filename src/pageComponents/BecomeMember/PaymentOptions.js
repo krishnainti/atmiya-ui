@@ -15,6 +15,7 @@ const PaymentOptions = (props) => {
                 value={item.value}
                 onChange={(e) => setPaymentMode(e.target.value)}
                 checked={paymentMode === item.value}
+                disabled={props.disabled}
               />
               <label className="form-check-label">{item.label}</label>
             </div>

@@ -16,7 +16,7 @@ const MyProfile = (props) => {
         title="My profile"
       />
 
-      <ReviewDetailsView profile={user.profile} user={user} />
+      <ReviewDetailsView profile={user.profile} user={user} showEditButton />
     </>
   );
 };
