@@ -166,11 +166,11 @@ const ReviewDetailsView = (props) => {
 
           <div className="contact-form__block-heading">Indian Origin</div>
           <IndianOrigin profile={profile} />
-          <div className="divider my-4" />
 
           {profile?.payments?.length > 0 &&
             +(profile.payments?.[0]?.amount || "0") > 0 && (
               <>
+                <div className="divider my-4" />
                 <div className="contact-form__block-heading">
                   Payment Options
                 </div>

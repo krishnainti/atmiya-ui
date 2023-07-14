@@ -12,16 +12,12 @@ const Fire = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-12">
-              <div className="error-page__inner">
-                <h3 className="error-page__tagline">
-                  Coming Soon
-                  <br />
-                  <br />
-                </h3>
-
-                <a href="index.html" className="thm-btn error-page__btn">
-                  back to home
-                </a>
+              <div className="text">
+                <p>
+                  Education on long term investment advices, stock market, life
+                  insurance, term insurance etc. Objective is to build wealth
+                  for our community.
+                </p>
               </div>
             </div>
           </div>

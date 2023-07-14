@@ -44,6 +44,8 @@ const UserFooter = (props) => {
 
   return (
     <div>
+      <div className="divider my-4" />
+      <div className="contact-form__block-heading">Disclaimer</div>
       <div
         className="form-check d-flex align-items-center"
         style={{ gap: "10px" }}
@@ -88,7 +90,6 @@ const UserFooter = (props) => {
               Edit Details
             </button>
 
-            {console.log("disclaimer -->", disclaimer)}
             <button
               className={`thm-btn contact-form__btn m-0 ${
                 !disclaimer ? "thm-btn-disabled" : ""

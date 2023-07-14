@@ -2,7 +2,7 @@
   "name": "atmiya-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://uat.atmiyausa.org/",
+  "homepage": "https://atmiyausa.org/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",

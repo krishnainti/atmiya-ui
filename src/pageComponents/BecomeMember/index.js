@@ -228,6 +228,7 @@ const BecomeMember = () => {
         familyDetails,
         stateCodes,
         indianOriginDetails,
+        isLoggedInUser,
       });
 
       if (!isValid) {
@@ -258,6 +259,7 @@ const BecomeMember = () => {
       let response = null;
 
       if (isLoggedInUser) {
+        delete payload.password;
         response = await updateMyProfile(payload);
       } else {
         response = await register(payload);
@@ -405,14 +407,18 @@ const BecomeMember = () => {
               disabled={isLoggedInUser}
             />
 
-            <div className="divider mb-2" />
-            <div className="contact-form__block-heading">Password</div>
+            {!isLoggedInUser && (
+              <>
+                <div className="divider mb-2" />
+                <div className="contact-form__block-heading">Password</div>
 
-            <PasswordDetails
-              passwordDetails={passwordDetails}
-              setPasswordDetails={setPasswordDetails}
-              passwordDetailsErrors={passwordDetailsErrors}
-            />
+                <PasswordDetails
+                  passwordDetails={passwordDetails}
+                  setPasswordDetails={setPasswordDetails}
+                  passwordDetailsErrors={passwordDetailsErrors}
+                />
+              </>
+            )}
 
             <div className="divider mb-2" />
 
@@ -440,15 +446,21 @@ const BecomeMember = () => {
               setIndianOriginDetails={setIndianOriginDetails}
               indianOriginDetailsErrors={indianOriginDetailsErrors}
             />
-            <div className="divider mb-2" />
 
-            <div className="contact-form__block-heading">Payment Options</div>
+            {membershipDetails.membership_category.toString() !== "1" && (
+              <>
+                <div className="divider mb-2" />
+                <div className="contact-form__block-heading">
+                  Payment Options
+                </div>
 
-            <PaymentOptions
-              paymentMode={paymentMode}
-              setPaymentMode={setPaymentMode}
-              disabled={isLoggedInUser}
-            />
+                <PaymentOptions
+                  paymentMode={paymentMode}
+                  setPaymentMode={setPaymentMode}
+                  disabled={isLoggedInUser}
+                />
+              </>
+            )}
 
             <div className="row pt-5">
               <div className="col-xl-12">

@@ -14,16 +14,15 @@ const Immigration = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-12">
-              <div className="error-page__inner">
-                <h3 className="error-page__tagline">
-                  Coming Soon
-                  <br />
-                  <br />
-                </h3>
-
-                <a href="index.html" className="thm-btn error-page__btn">
-                  back to home
-                </a>
+              <div className="text">
+                <p>
+                  This service is to help our Atmiyulu in guiding best of the
+                  best guidance regarding any immigration queries or
+                  process.Nothing less to say but there are hundreds of Atmiyulu
+                  taking advantage of the immigration sessions. Objective is to
+                  make every atmiyudu’s immigration journey hassle free in this
+                  great land of opportunities.
+                </p>
               </div>
             </div>
           </div>

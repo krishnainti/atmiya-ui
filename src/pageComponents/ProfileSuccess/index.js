@@ -102,7 +102,10 @@ const ProfileSuccess = (props) => {
               <div className="contact-form__btn-box">
                 <button
                   className="thm-btn contact-form__btn"
-                  onClick={() => navigate("/")}
+                  onClick={() => {
+                    navigate("/");
+                    window.location.reload();
+                  }}
                 >
                   Go to Home
                 </button>

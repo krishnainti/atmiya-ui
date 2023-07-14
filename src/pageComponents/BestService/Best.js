@@ -14,16 +14,12 @@ const best = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-12">
-              <div className="error-page__inner">
-                <h3 className="error-page__tagline">
-                  Coming Soon
-                  <br />
-                  <br />
-                </h3>
-
-                <a href="index.html" className="thm-btn error-page__btn">
-                  back to home
-                </a>
+              <div className="text">
+                <p>
+                  Education on entrepreneurship, how to excel, what to avoid,
+                  explore different industries etc. Objective is to build as
+                  many entrepreneurs as possible from the community.
+                </p>
               </div>
             </div>
           </div>

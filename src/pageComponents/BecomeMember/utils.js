@@ -16,6 +16,7 @@ export const validateRegistrationFrom = ({
   familyDetails,
   stateCodes,
   indianOriginDetails,
+  isLoggedInUser,
 }) => {
   let isValid = true;
   const errors = {
@@ -48,10 +49,12 @@ export const validateRegistrationFrom = ({
     errors.membershipDetailsErrors = membershipDetailsErrors;
   }
 
-  const passwordDetailsErrors = validatePasswordDetails(passwordDetails);
-  if (Object.keys(passwordDetailsErrors).length) {
-    isValid = false;
-    errors.passwordDetailsErrors = passwordDetailsErrors;
+  if (!isLoggedInUser) {
+    const passwordDetailsErrors = validatePasswordDetails(passwordDetails);
+    if (Object.keys(passwordDetailsErrors).length) {
+      isValid = false;
+      errors.passwordDetailsErrors = passwordDetailsErrors;
+    }
   }
 
   if (
