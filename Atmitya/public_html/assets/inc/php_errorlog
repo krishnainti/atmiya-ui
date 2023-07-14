@@ -1,0 +1,4 @@
+[26-Feb-2023 05:29:31 UTC] PHP Parse error:  syntax error, unexpected '$lastname' (T_VARIABLE) in /home/customer/www/atmiyausa.org/public_html/assets/inc/sendemail.php on line 25
+[26-Feb-2023 20:17:17 UTC] PHP Parse error:  syntax error, unexpected '$lastname' (T_VARIABLE) in /home/customer/www/atmiyausa.org/public_html/assets/inc/sendemail.php on line 25
+[27-Feb-2023 03:34:40 UTC] PHP Parse error:  syntax error, unexpected '"Wrong"' (T_CONSTANT_ENCAPSED_STRING) in /home/customer/www/atmiyausa.org/public_html/assets/inc/sendemail.php on line 57
+[27-Feb-2023 03:36:09 UTC] PHP Parse error:  syntax error, unexpected '"Wrong"' (T_CONSTANT_ENCAPSED_STRING) in /home/customer/www/atmiyausa.org/public_html/assets/inc/sendemail.php on line 57
