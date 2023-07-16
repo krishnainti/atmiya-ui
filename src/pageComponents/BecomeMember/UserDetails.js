@@ -48,7 +48,6 @@ const UserDetails = (props) => {
       <div className="col-xl-4">
         <div className="contact-form__input-box">
           <TextInput
-            type="number"
             placeholder="Referrer Phone"
             value={userDetails.reference_phone}
             error={userDetailsErrors.reference_phone}
@@ -114,7 +113,6 @@ const UserDetails = (props) => {
       <div className="col-xl-4">
         <div className="contact-form__input-box">
           <TextInput
-            type="number"
             placeholder="Phone"
             value={userDetails.phone}
             error={userDetailsErrors.phone}

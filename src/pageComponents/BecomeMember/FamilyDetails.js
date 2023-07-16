@@ -121,7 +121,6 @@ const FamilyDetails = (props) => {
       <div className="col-xl-4">
         <div className="contact-form__input-box">
           <TextInput
-            type="number"
             placeholder="Spouse Phone"
             value={familyDetails.spouse_phone}
             error={familyDetailsErrors.spouse_phone}
