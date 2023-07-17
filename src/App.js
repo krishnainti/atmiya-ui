@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { webStore, webPersister } from "./store/store";
 
 import Layout from "./layout/index";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const appRef = useRef(null);
@@ -28,6 +29,7 @@ function App() {
     <BrowserRouter basename="/">
       <Provider store={webStore}>
         <PersistGate loading={null} persistor={webPersister}>
+          <ScrollToTop />
           <Layout />
         </PersistGate>
       </Provider>

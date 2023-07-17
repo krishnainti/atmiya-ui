@@ -52,7 +52,7 @@ const RoutesList = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
 
-      <Route path="/become-a-member" element={<BecomeMember />} />
+      <Route path="/join" element={<BecomeMember />} />
       <Route path="/review-details" element={<ReviewDetails />} />
       <Route
         path="/capture-paypal-payment"

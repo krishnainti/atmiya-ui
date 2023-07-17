@@ -117,7 +117,7 @@ const ReviewDetailsView = (props) => {
             {props.showEditButton && (
               <button
                 className="thm-btn primary-button m-0"
-                onClick={() => navigate("/become-a-member")}
+                onClick={() => navigate("/join")}
               >
                 Edit Details
               </button>

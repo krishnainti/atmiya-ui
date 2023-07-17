@@ -22,7 +22,7 @@ export const defaultAddressDetails = {
 };
 
 export const defaultMembershipDetails = {
-  membership_category: "",
+  membership_category: "2",
 };
 
 export const defaultPasswordDetails = {

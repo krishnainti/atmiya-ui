@@ -76,6 +76,7 @@ const UserFooter = (props) => {
             setAlertMsg("");
             setTimeout(() => {}, 500);
           }}
+          confirmButtonColor="#007bff"
         />
 
         <div className="col-xl-12">
@@ -85,7 +86,7 @@ const UserFooter = (props) => {
           >
             <button
               className="thm-btn contact-form__btn m-0"
-              onClick={() => navigate("/become-a-member")}
+              onClick={() => navigate("/join")}
             >
               Edit Details
             </button>

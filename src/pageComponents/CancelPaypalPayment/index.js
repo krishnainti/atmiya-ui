@@ -19,7 +19,7 @@ const CancelPaypalPayment = () => {
       const token = searchParams.get("token");
 
       cancelPaypalPayment(token).finally(() => {
-        navigate("/become-a-member");
+        navigate("/join");
       });
     }
   }, []);
@@ -39,6 +39,7 @@ const CancelPaypalPayment = () => {
             navigate("/review-details");
           }, 500);
         }}
+        confirmButtonColor="#007bff"
       />
     </div>
   );

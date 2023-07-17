@@ -399,6 +399,26 @@ const BecomeMember = () => {
               Membership Category
             </div>
 
+            <div
+              style={{
+                paddingLeft: "10px",
+                display: "flex",
+                alignItems: "center",
+                gap: "4px",
+                fontSize: "14px",
+                paddingBottom: "10px",
+              }}
+            >
+              {membershipCategories.map((item, index) => {
+                return (
+                  <div key={index}>
+                    {item.label} (${parseFloat(item.original.fee)})
+                    {index < membershipCategories.length - 1 && <>,</>}
+                  </div>
+                );
+              })}
+            </div>
+
             <MembershipDetails
               membershipDetails={membershipDetails}
               setMembershipDetails={setMembershipDetails}

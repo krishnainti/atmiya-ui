@@ -267,9 +267,7 @@ const Header = () => {
                     {!token && (
                       <li
                         className={`dropdown ${
-                          ["/become-a-member", "/login"].includes(
-                            location.pathname
-                          )
+                          ["/join", "/login"].includes(location.pathname)
                             ? "current"
                             : ""
                         } `}
@@ -278,7 +276,7 @@ const Header = () => {
 
                         <ul>
                           <li>
-                            <a href="/become-a-member">Become a Member</a>
+                            <a href="/join">Become a Member</a>
                           </li>
 
                           <li>
@@ -303,6 +301,14 @@ const Header = () => {
                     <li>
                       <a href="/contact">Contact</a>
                     </li>
+
+                    {token && (
+                      <li>
+                        <button className="yellow-button">
+                          <a href="/logout">Logout</a>
+                        </button>
+                      </li>
+                    )}
                   </ul>
                 </div>
 
@@ -314,19 +320,6 @@ const Header = () => {
                         className="main-menu__search search-toggler icon-magnifying-glass"
                       />
                     </div>
-
-                    {token && (
-                      <div className="main-menu__user-icon main-menu__list">
-                        <li className="dropdown">
-                          <a className="main-menu__cart icon-avatar" />
-                          <ul style={{ minWidth: "200px" }}>
-                            <li>
-                              <a href="/logout">Logout</a>
-                            </li>
-                          </ul>
-                        </li>
-                      </div>
-                    )}
 
                     <div className="main-menu__btn-box">
                       <a

@@ -47,6 +47,7 @@ const CapturePaypalPayment = () => {
             navigate("/review-details");
           }, 500);
         }}
+        confirmButtonColor="#007bff"
       />
     </div>
   );

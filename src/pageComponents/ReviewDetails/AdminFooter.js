@@ -58,6 +58,7 @@ const AdminFooter = (props) => {
             navigate("/pending-profiles");
           }, 500);
         }}
+        confirmButtonColor="#007bff"
       />
 
       {user?.profile?.status === "under_review" ? (
