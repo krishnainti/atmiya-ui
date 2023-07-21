@@ -5,20 +5,25 @@ const SelectInput = (props) => {
         {props.label || props.placeholder}
         {props.required && <span style={{ color: "red" }}> *</span>}
       </label>
-      <select
-        onChange={props.onChange}
-        value={props.value}
-        disabled={props.disabled}
-      >
-        <option value="" disabled>
-          {props.placeholder}
-        </option>
-        {props.options?.map((option, index) => (
-          <option key={index} value={option.value}>
-            {option.label}
+      <div style={{ position: "relative" }}>
+        <select
+          onChange={props.onChange}
+          value={props.value}
+          disabled={props.disabled}
+        >
+          <option value="" disabled>
+            {props.placeholder}
           </option>
-        ))}
-      </select>
+          {props.options?.map((option, index) => (
+            <option key={index} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <span style={{ position: "absolute", top: "15px", right: "10px" }}>
+          ▼
+        </span>
+      </div>
 
       {props.error && (
         <div className="validation-error-message">{props.error}</div>

@@ -78,7 +78,7 @@ const BecomeMember = () => {
     {}
   );
 
-  const [paymentMode, setPaymentMode] = useState("paypal");
+  const [paymentMode, setPaymentMode] = useState("zelle");
 
   const [stateCodes, setStateCodes] = useState([]);
   const [allStateCodes, setAllStateCodes] = useState([]);
@@ -278,7 +278,7 @@ const BecomeMember = () => {
       }
     } catch (e) {
       console.log("error while handleSave", e);
-      if (e.response.status === 422) {
+      if (e?.response?.status === 422) {
         const errors = prepareServerErrors(e.response.data.errors);
         setUserDetailsErrors(errors.userDetailsErrors);
         setAddressDetailsErrors(errors.addressDetailsErrors);
@@ -479,6 +479,8 @@ const BecomeMember = () => {
                   setPaymentMode={setPaymentMode}
                   disabled={isLoggedInUser}
                 />
+
+                {/* {paymentMode === "paypal" && <div>zelle help text</div>} */}
               </>
             )}
 

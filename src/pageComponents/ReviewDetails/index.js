@@ -40,7 +40,7 @@ const ReviewDetails = (props) => {
   return (
     <>
       {loading && <CustomLoader />}
-      {props.admin ? (
+      {/* {props.admin ? (
         <PageHeader
           breadcrumb={[
             { label: "Home", link: "/" },
@@ -56,7 +56,7 @@ const ReviewDetails = (props) => {
           ]}
           title="Become a Member"
         />
-      )}
+      )} */}
 
       <ReviewDetailsView
         showEditButton={!props.admin}

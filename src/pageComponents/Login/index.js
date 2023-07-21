@@ -66,14 +66,6 @@ const Login = () => {
 
   return (
     <>
-      <PageHeader
-        breadcrumb={[
-          { label: "Home", link: "/" },
-          { label: "Membership", link: "/" },
-        ]}
-        title="Login"
-      />
-
       <section className="contact-three">
         <div
           className="contact-three-shape"
@@ -85,8 +77,6 @@ const Login = () => {
 
         <div className="container">
           <div className="section-title text-center">
-            <span className="section-title__tagline">Please Login</span>
-
             <h2 className="section-title__title">Login</h2>
           </div>
 

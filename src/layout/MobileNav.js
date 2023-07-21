@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux";
+
 const MobileNav = () => {
+  const { token } = useSelector((state) => state.user);
+
   return (
     <div className="mobile-nav__wrapper">
       <div className="mobile-nav__overlay mobile-nav__toggler"></div>
@@ -15,6 +19,12 @@ const MobileNav = () => {
         </div>
 
         <div className="mobile-nav__container"></div>
+
+        {token && (
+          <button className="yellow-button mt-4">
+            <a href="/logout">Logout</a>
+          </button>
+        )}
 
         <ul className="mobile-nav__contact list-unstyled">
           <li>

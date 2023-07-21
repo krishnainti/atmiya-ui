@@ -46,17 +46,13 @@ export const defaultIndianOriginDetails = {
 
 export const paymentOptions = [
   {
-    label: "Paypal/Credit/DebitCard",
-    value: "paypal",
-  },
-  {
     label: "Zelle",
     value: "zelle",
   },
-  // {
-  //   label: "Credit/DebitCard",
-  //   value: "card",
-  // },
+  {
+    label: "Paypal/Credit/DebitCard",
+    value: "paypal",
+  },
 ];
 
 export const genderOptions = [

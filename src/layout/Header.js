@@ -294,26 +294,33 @@ const Header = () => {
                             : ""
                         } `}
                       >
-                        <a href="/pending-profiles">Pending Profiles</a>
+                        <a href="#">Administration</a>
+
+                        <ul>
+                          <li>
+                            <a href="/pending-profiles">Pending applications</a>
+                          </li>
+                        </ul>
                       </li>
                     )}
 
                     <li>
                       <a href="/contact">Contact</a>
                     </li>
-
-                    {token && (
-                      <li>
-                        <button className="yellow-button">
-                          <a href="/logout">Logout</a>
-                        </button>
-                      </li>
-                    )}
                   </ul>
                 </div>
 
                 <div className="main-menu__main-menu-content-box">
                   <div className="main-menu__search-cat-btn-box">
+                    <div className="main-menu__btn-box">
+                      <a
+                        href="https://www.paypal.com/donate/?hosted_button_id=NLTHZX6RZ3QG4"
+                        className="main-menu__btn"
+                      >
+                        <span className="fa fa-heart"></span>Donate
+                      </a>
+                    </div>
+
                     <div className="main-menu__search-box">
                       <a
                         href="#"
@@ -321,15 +328,13 @@ const Header = () => {
                       />
                     </div>
 
-                    <div className="main-menu__btn-box">
-                      <a
-                        href="https://www.paypal.com/donate/?hosted_button_id=NLTHZX6RZ3QG4"
-                        className="main-menu__btn"
-                      >
-                        {" "}
-                        <span className="fa fa-heart"></span>Donate
-                      </a>
-                    </div>
+                    {token && (
+                      <div className="main-menu__btn-box">
+                        <a href="/logout" className="main-menu__btn">
+                          Logout
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

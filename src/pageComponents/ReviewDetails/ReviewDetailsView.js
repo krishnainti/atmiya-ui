@@ -98,7 +98,7 @@ const ReviewDetailsView = (props) => {
       <div className="container">
         <div className="section-title text-center">
           <span className="section-title__tagline">
-            Please Review Profile Details
+            Please Review Member Details
           </span>
 
           <h2 className="section-title__title">Review Details</h2>
