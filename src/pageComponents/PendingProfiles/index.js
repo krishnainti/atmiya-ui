@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { fetchReviewProfiles } from "../../services/auth";
-import { fetchChapterStates, fetchChapters } from "../../services/masterData";
+import {
+  fetchChapterStates,
+  fetchChapters,
+  fetchMembershipCategories,
+} from "../../services/masterData";
 
 const PendingProfiles = () => {
   const navigate = useNavigate();
@@ -11,8 +15,21 @@ const PendingProfiles = () => {
 
   const [stateCodes, setStateCodes] = useState([]);
   const [chapters, setChapters] = useState([]);
+  const [membershipCategories, setMembershipCategories] = useState([]);
+
+  const getMembershipCategories = async () => {
+    const membershipCategoriesData = await fetchMembershipCategories();
+    setMembershipCategories(
+      membershipCategoriesData.map((i) => ({
+        label: i.name,
+        value: i.id,
+        original: i,
+      }))
+    );
+  };
 
   useEffect(() => {
+    getMembershipCategories();
     fetchReviewProfiles()
       .then((res) => {
         setUsers(res.users);
@@ -56,6 +73,15 @@ const PendingProfiles = () => {
     }
   };
 
+  const getMembershipCategory = (user) => {
+    return (
+      membershipCategories.find(
+        (i) =>
+          i.value.toString() === user.profile?.membership_category.toString()
+      )?.label || ""
+    );
+  };
+
   useEffect(() => {
     getMasterData();
   }, []);
@@ -74,27 +100,33 @@ const PendingProfiles = () => {
               <th>Email</th>
               <th>Phone number</th>
               <th>Chapter Name</th>
+              <th>Type of Membership</th>
+              <th>Payment Method</th>
               <th>Application Status</th>
               <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {users.map((users, index) => {
+            {users.map((user, index) => {
               return (
                 <tr key={index}>
                   <td style={{ paddingLeft: "12px" }}>{index + 1}</td>
-                  <td>{users.name}</td>
-                  <td>{users.email}</td>
-                  <td>{users.profile?.phone}</td>
-                  <td>{getChapterRepresent(users.profile)}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.profile?.phone}</td>
+                  <td>{getChapterRepresent(user.profile)}</td>
+                  <td>{getMembershipCategory(user)}</td>
                   <td style={{ textTransform: "capitalize" }}>
-                    {users.profile?.status?.split("_").join(" ")}
+                    {user.profile?.payment_mode}
+                  </td>
+                  <td style={{ textTransform: "capitalize" }}>
+                    {user.profile?.status?.split("_").join(" ")}
                   </td>
                   <td>
                     <button
                       className="primary-button"
-                      onClick={() => navigate(`/pending-profiles/${users.id}`)}
+                      onClick={() => navigate(`/pending-profiles/${user.id}`)}
                     >
                       Review
                     </button>

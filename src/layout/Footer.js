@@ -17,7 +17,7 @@ const Footer = () => {
             >
               <div className="footer-widget__column footer-widget__about">
                 <div className="footer-widget__about-logo">
-                  <a href="index.html">
+                  <a href="/">
                     <img src="assets/images/resources/footer-logo.png" alt="" />
                   </a>
                 </div>
@@ -46,27 +46,27 @@ const Footer = () => {
 
                 <ul className="footer-widget__links-list list-unstyled clearfix">
                   <li>
-                    <a href="index.html">About us</a>
+                    <a href="/about">About us</a>
                   </li>
 
                   <li>
-                    <a href="index.html">Contact</a>
+                    <a href="/contact">Contact</a>
                   </li>
 
                   <li>
-                    <a href="index.html">Latest News</a>
+                    <a href="/">Latest News</a>
                   </li>
 
                   <li>
-                    <a href="index.html">Recent Events</a>
+                    <a href="/">Recent Events</a>
                   </li>
 
                   <li>
-                    <a href="index.html">Volunteers</a>
+                    <a href="/">Volunteers</a>
                   </li>
 
                   <li>
-                    <a href="index.html">Members</a>
+                    <a href="/">Members</a>
                   </li>
                 </ul>
               </div>
@@ -81,27 +81,27 @@ const Footer = () => {
 
                 <ul className="footer-widget__non-profit-list list-unstyled clearfix">
                   <li>
-                    <a href="index.html">F.I.R.E. (Investments)</a>
+                    <a href="/fire">F.I.R.E. (Investments)</a>
                   </li>
 
                   <li>
-                    <a href="index.html">A.S.A.R.A. (Students)</a>
+                    <a href="/asara">A.S.A.R.A. (Students)</a>
                   </li>
 
                   <li>
-                    <a href="index.html">B.E.S.T. (Business)</a>
+                    <a href="/best">B.E.S.T. (Business)</a>
                   </li>
 
                   <li>
-                    <a href="index.html">Real Women</a>
+                    <a href="/women">Real Women</a>
                   </li>
 
                   <li>
-                    <a href="index.html">Immigration (USA)</a>
+                    <a href="/immi">Immigration (USA)</a>
                   </li>
 
                   <li>
-                    <a href="index.html">Community Affairs</a>
+                    <a href="/community">Community Affairs</a>
                   </li>
                 </ul>
               </div>
@@ -180,7 +180,7 @@ const Footer = () => {
             <div className="col-xl-12">
               <div className="site-footer__bottom-inner">
                 <p className="site-footer__bottom-text">
-                  © All Copyright 2023 by <a href="#">ATMIYA USA</a>
+                  © All Copyright 2023 by <a href="/">ATMIYA USA</a>
                 </p>
               </div>
             </div>
