@@ -167,35 +167,29 @@ const ReviewDetailsView = (props) => {
           <div className="contact-form__block-heading">Indian Origin</div>
           <IndianOrigin profile={profile} />
 
-          {profile?.payments?.length > 0 &&
-            +(profile.payments?.[0]?.amount || "0") > 0 && (
-              <>
-                <div className="divider my-4" />
-                <div className="contact-form__block-heading">
-                  Payment Options
+          {profile?.payment && +(profile.payment.amount || "0") > 0 && (
+            <>
+              <div className="divider my-4" />
+              <div className="contact-form__block-heading">Payment Options</div>
+
+              <div className="row">
+                <div className="col-xl-6">
+                  <Item
+                    label="Payment Option"
+                    value={
+                      paymentOptions.find(
+                        (i) => i.value === profile?.payment_mode
+                      )?.label
+                    }
+                  />
                 </div>
 
-                <div className="row">
-                  <div className="col-xl-6">
-                    <Item
-                      label="Payment Option"
-                      value={
-                        paymentOptions.find(
-                          (i) => i.value === profile?.payment_mode
-                        )?.label
-                      }
-                    />
-                  </div>
-
-                  <div className="col-xl-6">
-                    <Item
-                      label="Payment Status"
-                      value={profile.payments[0].status}
-                    />
-                  </div>
+                <div className="col-xl-6">
+                  <Item label="Payment Status" value={profile.payment.status} />
                 </div>
-              </>
-            )}
+              </div>
+            </>
+          )}
 
           {props.Footer}
         </div>

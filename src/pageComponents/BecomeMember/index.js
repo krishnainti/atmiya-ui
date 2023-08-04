@@ -238,6 +238,17 @@ const BecomeMember = () => {
         setPasswordDetailsErrors(errors.passwordDetailsErrors);
         setFamilyDetailsErrors(errors.familyDetailsErrors);
         setIndianOriginDetailsErrors(errors.indianOriginDetailsErrors);
+
+        setTimeout(() => {
+          const input = document.querySelector(`.validation-error-message`);
+
+          input?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "start",
+          });
+        }, 200);
+
         return;
       }
 
