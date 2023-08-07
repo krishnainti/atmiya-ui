@@ -23,20 +23,20 @@ const News = () => {
                   <div className="news-one__content">
                     <ul className="list-unstyled news-one__meta">
                       <li>
-                        <a href="index.html">
+                        <a href="/">
                           <i className="far fa-user-circle"></i> Admin
                         </a>
                       </li>
 
                       <li>
-                        <a href="index.html">
+                        <a href="/">
                           <i className="fas fa-comments"></i> 2 Comments
                         </a>
                       </li>
                     </ul>
 
                     <h3 className="news-one__title">
-                      <a href="index.html">
+                      <a href="/">
                         ATMIYA, a 501(c)3 can receive Corporate Matching
                         donations
                       </a>
@@ -45,7 +45,7 @@ const News = () => {
 
                   <div className="news-one__bottom">
                     <div className="news-one__read-more">
-                      <a href="index.html">
+                      <a href="/">
                         {" "}
                         <span className="icon-right-arrow"></span> Read More
                       </a>
@@ -102,20 +102,20 @@ const News = () => {
                   <div className="news-one__content">
                     <ul className="list-unstyled news-one__meta">
                       <li>
-                        <a href="index.html">
+                        <a href="/">
                           <i className="far fa-user-circle"></i> Admin
                         </a>
                       </li>
 
                       <li>
-                        <a href="index.html">
+                        <a href="/">
                           <i className="fas fa-comments"></i> 2 Comments
                         </a>
                       </li>
                     </ul>
 
                     <h3 className="news-one__title">
-                      <a href="index.html">
+                      <a href="/">
                         ATMIYA now can certify for Presidential Volunteer
                         Service Awards
                       </a>
@@ -124,7 +124,7 @@ const News = () => {
 
                   <div className="news-one__bottom">
                     <div className="news-one__read-more">
-                      <a href="index.html">
+                      <a href="/">
                         {" "}
                         <span className="icon-right-arrow"></span> Read More
                       </a>
@@ -181,20 +181,20 @@ const News = () => {
                   <div className="news-one__content">
                     <ul className="list-unstyled news-one__meta">
                       <li>
-                        <a href="index.html">
+                        <a href="/">
                           <i className="far fa-user-circle"></i> Admin
                         </a>
                       </li>
 
                       <li>
-                        <a href="index.html">
+                        <a href="/">
                           <i className="fas fa-comments"></i> 2 Comments
                         </a>
                       </li>
                     </ul>
 
                     <h3 className="news-one__title">
-                      <a href="index.html">
+                      <a href="/">
                         ATMIYA congratulates Megastar Chiranjeevi on "Indian
                         Film Personality"
                       </a>
@@ -203,7 +203,7 @@ const News = () => {
 
                   <div className="news-one__bottom">
                     <div className="news-one__read-more">
-                      <a href="index.html">
+                      <a href="/">
                         {" "}
                         <span className="icon-right-arrow"></span> Read More
                       </a>

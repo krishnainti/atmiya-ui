@@ -111,7 +111,7 @@ const About = () => {
 
                   <div className="text">
                     <h5>
-                      <a href="index.html">Volunteer @ ATMIYA</a>
+                      <a href="/">Volunteer @ ATMIYA</a>
                     </h5>
 
                     <p>Share Your Knowledge</p>
@@ -119,7 +119,7 @@ const About = () => {
                 </li>
               </ul>
 
-              <a href="index.html" className="thm-btn about-one__btn">
+              <a href="/" className="thm-btn about-one__btn">
                 Discover More
               </a>
             </div>

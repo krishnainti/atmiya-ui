@@ -680,7 +680,7 @@ BEGIN_SIDER_404 51
 /ads.txt 7 -
 /team-details.html 5 -
 /apple-touch-icon-precomposed.png 4 -
-/index.html/ 2 http://atmiyausa.org/index.html/
+/// 2 http://atmiyausa.org///
 /assets/vendors/timepicker/timepicker.js 2 -
 /_ignition/health-check/ 1 http://atmiyausa.org/_ignition/health-check/
 /cart 2 -

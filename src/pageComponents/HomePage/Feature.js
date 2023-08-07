@@ -25,7 +25,7 @@ const Feature = () => {
 
                   <div className="feature-one__top-title-box">
                     <h3 className="feature-one__top-title">
-                      <a href="index.html">
+                      <a href="/">
                         Creating Wealth through <br />
                         Entrepreneurship
                       </a>
@@ -103,7 +103,7 @@ const Feature = () => {
 
                   <div className="feature-one__top-title-box">
                     <h3 className="feature-one__top-title">
-                      <a href="index.html">
+                      <a href="/">
                         Growing Wealth through
                         <br />
                         Investments
@@ -149,7 +149,7 @@ const Feature = () => {
                 </li>
               </ul>
 
-              <a href="index.html" className="thm-btn feature-one__btn">
+              <a href="/" className="thm-btn feature-one__btn">
                 View details
               </a>
             </div>

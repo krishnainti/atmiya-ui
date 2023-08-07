@@ -29,7 +29,7 @@ const BecomeVolunteer = () => {
           <h3 className="become-volunteer-one__title">Let's Grow Together</h3>
 
           <div className="become-volunteer-one__btn-box">
-            <a href="index.html" className="thm-btn become-volunteer-one__btn">
+            <a href="/" className="thm-btn become-volunteer-one__btn">
               Discover More
             </a>
           </div>

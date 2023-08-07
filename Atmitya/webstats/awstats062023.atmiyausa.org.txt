@@ -536,7 +536,7 @@ BEGIN_SIDER_404 38
 /ads.txt 2 http://www.atmiyausa.org/ads.txt
 /team-details.html 2 -
 /apple-touch-icon-precomposed.png 14 -
-/index.html/ 2 http://atmiyausa.org/index.html/
+/// 2 http://atmiyausa.org///
 /assets/vendors/timepicker/timepicker.js 4 -
 /tel:666-888-0000 1 -
 /.well-known/security.txt 1 -
