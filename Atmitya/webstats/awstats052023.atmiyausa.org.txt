@@ -856,7 +856,7 @@ BEGIN_SIDER_404 64
 /wordpress 2 -
 /tel:980009630 1 -
 /blog 1 -
-/// 2 -
+/index.html/ 2 -
 /bylaws.html 4 https://www.atmiyausa.org/
 /byla 2 -
 /tel:666-888-0000 1 -
