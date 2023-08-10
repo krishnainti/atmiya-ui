@@ -21,7 +21,7 @@ const Realwomen = () => {
                   <br />
                 </h3>
 
-                <a href="index.html" className="thm-btn error-page__btn">
+                <a href="/" className="thm-btn error-page__btn">
                   back to home
                 </a>
               </div>

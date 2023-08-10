@@ -24,7 +24,7 @@ const Gallery = () => {
                   <p className="gallery-one__sub-title">Charity</p>
 
                   <h5 className="gallery-one__title">
-                    <a href="index.html">Education</a>
+                    <a href="/">Education</a>
                   </h5>
                 </div>
               </div>
@@ -46,7 +46,7 @@ const Gallery = () => {
                   <p className="gallery-one__sub-title">Charity</p>
 
                   <h5 className="gallery-one__title">
-                    <a href="index.html">Education</a>
+                    <a href="/">Education</a>
                   </h5>
                 </div>
               </div>
@@ -68,7 +68,7 @@ const Gallery = () => {
                   <p className="gallery-one__sub-title">Charity</p>
 
                   <h5 className="gallery-one__title">
-                    <a href="index.html">Education</a>
+                    <a href="/">Education</a>
                   </h5>
                 </div>
               </div>
@@ -90,7 +90,7 @@ const Gallery = () => {
                   <p className="gallery-one__sub-title">Charity</p>
 
                   <h5 className="gallery-one__title">
-                    <a href="index.html">Education</a>
+                    <a href="/">Education</a>
                   </h5>
                 </div>
               </div>
@@ -112,7 +112,7 @@ const Gallery = () => {
                   <p className="gallery-one__sub-title">Charity</p>
 
                   <h5 className="gallery-one__title">
-                    <a href="index.html">Education</a>
+                    <a href="/">Education</a>
                   </h5>
                 </div>
               </div>

@@ -66,7 +66,7 @@ const MainSlider = () => {
                     <h2 className="main-slider__title">Entrepreneurship</h2>
 
                     <div className="main-slider__btn-box">
-                      <a href="index.html" className="thm-btn main-slider__btn">
+                      <a href="/" className="thm-btn main-slider__btn">
                         {" "}
                         Discover more
                       </a>
@@ -111,7 +111,7 @@ const MainSlider = () => {
                     <h2 className="main-slider__title">Wealth</h2>
 
                     <div className="main-slider__btn-box">
-                      <a href="index.html" className="thm-btn main-slider__btn">
+                      <a href="/" className="thm-btn main-slider__btn">
                         {" "}
                         Discover more
                       </a>
@@ -156,7 +156,7 @@ const MainSlider = () => {
                     <h2 className="main-slider__title">Students</h2>
 
                     <div className="main-slider__btn-box">
-                      <a href="index.html" className="thm-btn main-slider__btn">
+                      <a href="/" className="thm-btn main-slider__btn">
                         {" "}
                         Discover more
                       </a>

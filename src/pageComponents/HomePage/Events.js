@@ -22,7 +22,7 @@ const Events = () => {
                 Online Webinars & In-person Meetings
               </p>
 
-              <a href="index.html" className="thm-btn events-one__btn">
+              <a href="/" className="thm-btn events-one__btn">
                 Discover More
               </a>
             </div>
@@ -78,7 +78,7 @@ const Events = () => {
                         </ul>
 
                         <h3 className="events-one__title">
-                          <a href="index.html">
+                          <a href="/">
                             Incubating a Product Company - Anil Rachakonda
                           </a>
                         </h3>
@@ -108,7 +108,7 @@ const Events = () => {
                         </ul>
 
                         <h3 className="events-one__title">
-                          <a href="index.html">
+                          <a href="/">
                             Dr Jonnalagadda receives Redcross Gold Medal of
                             Honor
                           </a>
@@ -139,7 +139,7 @@ const Events = () => {
                         </ul>
 
                         <h3 className="events-one__title">
-                          <a href="index.html">
+                          <a href="/">
                             How to start & grow an IT services business - Ravi
                             Varre
                           </a>
@@ -170,7 +170,7 @@ const Events = () => {
                         </ul>
 
                         <h3 className="events-one__title">
-                          <a href="index.html">
+                          <a href="/">
                             Incubating a Product Company - Anil Rachakonda
                           </a>
                         </h3>
@@ -200,7 +200,7 @@ const Events = () => {
                         </ul>
 
                         <h3 className="events-one__title">
-                          <a href="index.html">
+                          <a href="/">
                             Dr Jonnalagadda receives Redcross Gold Medal of
                             Honor
                           </a>
@@ -231,7 +231,7 @@ const Events = () => {
                         </ul>
 
                         <h3 className="events-one__title">
-                          <a href="index.html">
+                          <a href="/">
                             Starting and Scaling an IT Services Company - Ravi
                             Varre
                           </a>

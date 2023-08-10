@@ -35,7 +35,7 @@ const Faq = () => {
                 financial & business education.
               </p>
 
-              <a href="index.html" className="thm-btn faq-one__btn">
+              <a href="/" className="thm-btn faq-one__btn">
                 Learn how to benefit from ATMIYA
               </a>
             </div>

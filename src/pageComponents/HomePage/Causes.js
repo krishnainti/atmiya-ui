@@ -28,7 +28,7 @@ const Causes = () => {
 
               <div className="causes-one__content">
                 <h3 className="causes-one__title">
-                  <a href="index.html">
+                  <a href="/">
                     Follow Your Passion. Convert into Profession.
                   </a>
                 </h3>
@@ -83,7 +83,7 @@ const Causes = () => {
 
               <div className="causes-one__content">
                 <h3 className="causes-one__title">
-                  <a href="index.html">
+                  <a href="/">
                     Financial Education is all about risk management
                   </a>
                 </h3>
@@ -137,7 +137,7 @@ const Causes = () => {
 
               <div className="causes-one__content">
                 <h3 className="causes-one__title">
-                  <a href="index.html">
+                  <a href="/">
                     Creating the Nextgen millionnaires & billionaires
                   </a>
                 </h3>
